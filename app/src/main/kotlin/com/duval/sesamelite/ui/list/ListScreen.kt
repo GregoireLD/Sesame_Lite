@@ -275,15 +275,15 @@ private fun EntryRow(
                 Text(
                     entry.label,
                     fontWeight = FontWeight.SemiBold,
-                    color = if (isFuture) MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                            else MaterialTheme.colorScheme.onSurface
+                    color = if (isFuture) MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
+                            else MaterialTheme.colorScheme.primary
                 )
             },
             supportingContent = {
                 Column {
                     val address = vm.repo.decryptedAddress(entry)
                     if (!address.isNullOrEmpty()) {
-                        Text(address, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text(address, fontSize = 13.sp, color = MaterialTheme.colorScheme.secondary)
                     }
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -296,25 +296,25 @@ private fun EntryRow(
                                 fontSize = 11.sp, color = Color(0xFFFF9500)
                             )
                         } else {
-                            if (entry.code != null) Icon(Icons.Default.Key, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.outline)
-                            if (entry.locationDetails != null) Icon(Icons.Default.Info, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.outline)
-                            if (entry.comment != null) Icon(Icons.Default.Comment, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.outline)
+                            if (entry.code != null) Icon(Icons.Default.Key, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.tertiary)
+                            if (entry.locationDetails != null) Icon(Icons.Default.Info, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.tertiary)
+                            if (entry.comment != null) Icon(Icons.Default.Comment, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.tertiary)
                             val hasCoords = entry.encryptedLatitude != null && entry.encryptedLongitude != null
                             if (entry.encryptedAddress != null) {
                                 Icon(
                                     if (hasCoords) Icons.Default.LocationOn else Icons.Default.LocationOff,
                                     null, modifier = Modifier.size(12.dp),
-                                    tint = if (hasCoords) MaterialTheme.colorScheme.outline else Color(0xFFFF9500)
+                                    tint = if (hasCoords) MaterialTheme.colorScheme.tertiary else Color(0xFFFF9500)
                                 )
                             }
-                            if (entry.isSilenced) Icon(Icons.Default.NotificationsOff, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.outline)
+                            if (entry.isSilenced) Icon(Icons.Default.NotificationsOff, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.tertiary)
                         }
                         // Distance label
                         if (state.sortOrder == SortOrder.ByDistance && state.hasLocationPermission) {
                             val dist = vm.distanceTo(entry)
                             if (dist != null) {
                                 Spacer(Modifier.weight(1f))
-                                Text(formatDistance(dist), fontSize = 11.sp, color = MaterialTheme.colorScheme.outline)
+                                Text(formatDistance(dist), fontSize = 11.sp, color = MaterialTheme.colorScheme.tertiary)
                             }
                         }
                     }

@@ -38,7 +38,7 @@ fun UnknownImportScreen(isFutureVersion: Boolean, onDismiss: () -> Unit) {
                 if (isFutureVersion) Icons.Default.ArrowUpward else Icons.Default.Warning,
                 null,
                 modifier = Modifier.size(64.dp),
-                tint = if (isFutureVersion) Color(0xFF1A73E8) else Color(0xFFFF9500)
+                tint = if (isFutureVersion) MaterialTheme.colorScheme.primary else Color(0xFFFF9500)
             )
             Spacer(Modifier.height(24.dp))
             Text(

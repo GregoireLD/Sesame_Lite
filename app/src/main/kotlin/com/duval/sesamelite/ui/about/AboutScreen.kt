@@ -146,7 +146,7 @@ fun AboutScreen(
 
             // ── Links ─────────────────────────────────────────────────────────
             AboutCard {
-                LinkRow("sesame-app.com", "https://sesame-app.com", Icons.Default.Language, Color(0xFF1A73E8))
+                LinkRow("sesame-app.com", "https://sesame-app.com", Icons.Default.Language, MaterialTheme.colorScheme.primary)
                 HorizontalDivider(modifier = Modifier.padding(start = 52.dp))
                 LinkRow(stringResource(R.string.about_tip), "https://ko-fi.com/duvalparis", Icons.Default.Favorite, Color(0xFFE91E63))
                 HorizontalDivider(modifier = Modifier.padding(start = 52.dp))
@@ -190,7 +190,7 @@ fun AboutScreen(
                     Text(
                         stringResource(R.string.about_privacy_statement),
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.secondary
                     )
                 }
             }
@@ -219,7 +219,7 @@ fun AboutScreen(
                     Text(
                         "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})",
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.secondary
                     )
                 }
 
@@ -264,7 +264,7 @@ fun AboutScreen(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.tertiary
             )
             Spacer(Modifier.height(32.dp))
         }

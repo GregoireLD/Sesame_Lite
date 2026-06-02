@@ -107,13 +107,15 @@ fun QRShareScreen(
                         label = stringResource(R.string.qr_option_location_details),
                         checked = state.includeLocationDetails,
                         onCheckedChange = vm::setIncludeLocationDetails,
-                        icon = Icons.Default.Info
+                        icon = Icons.Default.Info,
+                        iconTint = Color(0xFFFF9500)
                     )
                     SwitchRow(
                         label = stringResource(R.string.qr_option_comment),
                         checked = state.includeComment,
                         onCheckedChange = vm::setIncludeComment,
-                        icon = Icons.Default.Comment
+                        icon = Icons.Default.Comment,
+                        iconTint = MaterialTheme.colorScheme.tertiary
                     )
                     if (showHidden) {
                         HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
