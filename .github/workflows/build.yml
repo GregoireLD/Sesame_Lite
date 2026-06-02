@@ -41,9 +41,21 @@ jobs:
       #   KEYSTORE_BASE64  — base64-encoded .jks file: base64 -i keystore.jks | pbcopy
       #   STORE_PASSWORD   — keystore password
       #   KEY_PASSWORD     — key password
-      - name: Decode keystore
+      - name: Decode and convert keystore to JKS
         if: startsWith(github.ref, 'refs/tags/v')
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > keystore.jks
+        env:
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_BASE64 }}
+          STORE_PASS: ${{ secrets.STORE_PASSWORD }}
+        run: |
+          echo "$KEYSTORE_B64" | base64 --decode > keystore_src.jks
+          keytool -importkeystore \
+            -srckeystore keystore_src.jks \
+            -destkeystore keystore.jks \
+            -deststoretype JKS \
+            -srcstorepass "$STORE_PASS" \
+            -deststorepass "$STORE_PASS" \
+            -noprompt
+          rm keystore_src.jks
 
       - name: Build release APK
         if: startsWith(github.ref, 'refs/tags/v')
