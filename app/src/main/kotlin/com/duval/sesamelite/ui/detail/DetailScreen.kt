@@ -83,14 +83,12 @@ fun DetailScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             // Label
-            Card(modifier = Modifier.fillMaxWidth()) {
-                Column(Modifier.padding(16.dp)) {
-                    Text(
-                        text = entry.label,
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
+            DetailSectionCard(title = stringResource(R.string.label_header)) {
+                Text(
+                    text = entry.label,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.SemiBold
+                )
             }
 
             // Code section

@@ -95,7 +95,7 @@ Make sure the entry is fully saved.</string>
     <string name="qr_options_footer">Label, address and access code are always included.</string>
     <string name="qr_options_header">Include in share</string>
     <string name="qr_share">Share via Messages, email or more…</string>
-    <string name="qr_share_footer">The shared link opens directly in Sesame Lite on any Android device with the app installed.</string>
+    <string name="qr_share_footer">The shared link can be opened in Sesame, Sesame Lite, or in any web browser.</string>
     <string name="qr_title">Share Entry</string>
     <string name="qr_warning">This QR code contains all the shared fields in plain text. Only share it with trusted people.</string>
     <string name="qr_warning_legacy_scheme">Recipients without Sesame installed will not be able to open this link.</string>

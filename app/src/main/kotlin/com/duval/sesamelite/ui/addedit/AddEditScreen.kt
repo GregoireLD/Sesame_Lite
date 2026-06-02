@@ -238,7 +238,7 @@ fun AddEditScreen(
                         )
                     }
                 }
-                Text(stringResource(R.string.radius_footer, 100), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(stringResource(R.string.radius_footer, "100 m"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             // Location details

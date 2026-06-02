@@ -220,7 +220,8 @@ class AddEditViewModel(app: Application) : AndroidViewModel(app) {
     // Clipboard import
     // ---------------------------------------------------------------------------
 
-    fun importFromClipboard(clipText: String?) {
+    fun importFromClipboard(rawClipText: String?) {
+        val clipText = rawClipText?.trim()
         if (clipText.isNullOrEmpty()) {
             _state.value = _state.value.copy(showClipboardError = true)
             return
