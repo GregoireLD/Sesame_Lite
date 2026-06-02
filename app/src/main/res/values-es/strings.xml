@@ -64,9 +64,9 @@
     <string name="onboarding_howitworks_feature3_title">Privado y cifrado</string>
     <string name="onboarding_howitworks_title">Cómo funciona</string>
     <string name="onboarding_permissions_button">Conceder permisos</string>
-    <string name="onboarding_permissions_note">Tras conceder el acceso a la ubicación, Android te llevará a Ajustes para activar "Permitir siempre" — necesario para las alertas de llegada automáticas.</string>
+    <string name="onboarding_permissions_note">Al conceder la ubicación, asegúrate de mantener activada la "Ubicación precisa". Luego serás redirigido a una segunda pantalla para activar "Permitir siempre" — ambos son necesarios para las alertas de llegada automáticas.</string>
     <string name="onboarding_permissions_skip">Omitir por ahora</string>
-    <string name="onboarding_permissions_subtitle">Sesame necesita acceso a tu ubicación y notificaciones para alertarte al llegar. Sin estos permisos, la app puede seguir almacenando tus códigos de forma segura — pero no podrá notificarte automáticamente.</string>
+    <string name="onboarding_permissions_subtitle">Sesame necesita acceso a tu ubicación precisa y notificaciones para alertarte al llegar. Sin estos permisos, la app puede seguir almacenando tus códigos de forma segura — pero no podrá notificarte automáticamente.</string>
     <string name="onboarding_permissions_title">Dos permisos</string>
     <string name="onboarding_ready_button">Empezar a usar Sesame</string>
     <string name="onboarding_ready_subtitle">Empieza añadiendo tu primera ubicación. Sesame se encargará del resto.</string>
@@ -78,7 +78,10 @@
     <string name="onboarding_security_title">Seguridad adicional</string>
     <string name="onboarding_welcome_subtitle">Tus códigos de acceso, siempre a mano — y entregados automáticamente cuando los necesitas.</string>
     <string name="onboarding_welcome_title">Bienvenido a Sesame</string>
-    <string name="permission_location_banner">Se requiere acceso a la ubicación en segundo plano para que las notificaciones funcionen cuando la app está cerrada.</string>
+    <string name="permission_location_none">Se requiere permiso de ubicación para las alertas de llegada.</string>
+    <string name="permission_location_approximate">Se necesita ubicación precisa. Abre Ajustes y activa "Ubicación precisa" para Sesame.</string>
+    <string name="permission_location_foreground">Se requiere acceso a la ubicación en segundo plano para las alertas de llegada cuando la app está cerrada.</string>
+    <string name="permission_location_services_off">Los servicios de ubicación están desactivados. Actívalos en Ajustes para recibir alertas de llegada.</string>
     <string name="permission_notification_banner">Las notificaciones están desactivadas. Sesame no podrá avisarte al llegar a una ubicación guardada.</string>
     <string name="permission_open_settings">Abrir ajustes</string>
     <string name="qr_generation_failed">No se pudo generar el código QR.

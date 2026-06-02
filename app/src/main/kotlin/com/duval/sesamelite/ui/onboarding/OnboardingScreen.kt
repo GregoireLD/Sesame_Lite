@@ -35,6 +35,8 @@ import kotlinx.coroutines.launch
 fun OnboardingScreen(onComplete: () -> Unit) {
     val pagerState = rememberPagerState(pageCount = { 5 })
     val scope = rememberCoroutineScope()
+    var skipPermissions by remember { mutableStateOf(false) }
+    var prevPage by remember { mutableStateOf(0) }
 
     // Permission launchers
     val bgLocationLauncher = rememberLauncherForActivityResult(
@@ -51,6 +53,23 @@ fun OnboardingScreen(onComplete: () -> Unit) {
         }
     }
 
+    // Trigger permissions when the user advances past the permissions page (swipe or button),
+    // unless they explicitly tapped Skip.
+    LaunchedEffect(pagerState.currentPage) {
+        val current = pagerState.currentPage
+        if (current == 3 && prevPage == 2 && !skipPermissions) {
+            val perms = buildList {
+                add(Manifest.permission.ACCESS_FINE_LOCATION)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    add(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+            permissionsLauncher.launch(perms.toTypedArray())
+        }
+        skipPermissions = false
+        prevPage = current
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         HorizontalPager(
             state = pagerState,
@@ -61,16 +80,10 @@ fun OnboardingScreen(onComplete: () -> Unit) {
                 1 -> HowItWorksPage()
                 2 -> PermissionsPage(
                     onGrant = {
-                        val perms = buildList {
-                            add(Manifest.permission.ACCESS_FINE_LOCATION)
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                                add(Manifest.permission.POST_NOTIFICATIONS)
-                            }
-                        }
-                        permissionsLauncher.launch(perms.toTypedArray())
                         scope.launch { pagerState.animateScrollToPage(3) }
                     },
                     onSkip = {
+                        skipPermissions = true
                         scope.launch { pagerState.animateScrollToPage(3) }
                     }
                 )

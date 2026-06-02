@@ -64,9 +64,9 @@
     <string name="onboarding_howitworks_feature3_title">Private and encrypted</string>
     <string name="onboarding_howitworks_title">How It Works</string>
     <string name="onboarding_permissions_button">Grant Permissions</string>
-    <string name="onboarding_permissions_note">After granting location access, Android will take you to Settings to enable "Allow all the time" — required for automatic arrival alerts.</string>
+    <string name="onboarding_permissions_note">When granting location access, make sure to keep "Use precise location" enabled. You\'ll then be taken to a second screen to set it to "Allow all the time" — both are required for automatic arrival alerts.</string>
     <string name="onboarding_permissions_skip">Skip for now</string>
-    <string name="onboarding_permissions_subtitle">Sesame needs access to your location and notifications to alert you when you arrive at a saved address. Without these, the app can still store your codes safely — but won\'t be able to notify you automatically.</string>
+    <string name="onboarding_permissions_subtitle">Sesame needs precise location access and notifications to alert you when you arrive at a saved address. Without these, the app can still store your codes safely — but won\'t be able to notify you automatically.</string>
     <string name="onboarding_permissions_title">Two Permissions</string>
     <string name="onboarding_ready_button">Start using Sesame</string>
     <string name="onboarding_ready_subtitle">Start by adding your first location. Sesame will take care of the rest.</string>
@@ -78,7 +78,10 @@
     <string name="onboarding_security_title">Extra Security</string>
     <string name="onboarding_welcome_subtitle">Your building access codes, always at hand — and delivered to you automatically when you need them.</string>
     <string name="onboarding_welcome_title">Welcome to Sesame</string>
-    <string name="permission_location_banner">Background location access is required for notifications to work when the app is closed.</string>
+    <string name="permission_location_none">Location permission is required for arrival alerts to work.</string>
+    <string name="permission_location_approximate">Precise location is required. Open Settings and enable "Use precise location" for Sesame.</string>
+    <string name="permission_location_foreground">Background location access is required for arrival alerts when the app is closed.</string>
+    <string name="permission_location_services_off">Location services are off. Enable them in Settings to receive arrival alerts.</string>
     <string name="permission_notification_banner">Notifications are disabled. Sesame won\'t be able to alert you when you arrive at a saved location.</string>
     <string name="permission_open_settings">Open Settings</string>
     <string name="qr_generation_failed">Could not generate QR code.

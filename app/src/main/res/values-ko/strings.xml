@@ -64,9 +64,9 @@
     <string name="onboarding_howitworks_feature3_title">비공개 및 암호화</string>
     <string name="onboarding_howitworks_title">작동 방식</string>
     <string name="onboarding_permissions_button">권한 허용</string>
-    <string name="onboarding_permissions_note">위치 접근을 허용한 후 Android가 설정으로 이동하여 "항상 허용"을 활성화하도록 안내합니다 — 자동 도착 알림에 필요합니다.</string>
+    <string name="onboarding_permissions_note">위치 권한 요청 시 "정밀 위치 사용"이 활성화되어 있는지 확인하세요. 그런 다음 "항상 허용"을 활성화하는 두 번째 화면으로 이동됩니다 — 둘 다 자동 도착 알림에 필요합니다.</string>
     <string name="onboarding_permissions_skip">지금은 건너뛰기</string>
-    <string name="onboarding_permissions_subtitle">Sesame이 저장된 주소에 도착했을 때 알림을 보내려면 위치 및 알림 접근 권한이 필요합니다. 이 없이도 코드를 안전하게 저장할 수 있지만 자동 알림은 불가능합니다.</string>
+    <string name="onboarding_permissions_subtitle">Sesame이 저장된 주소에 도착했을 때 알림을 보내려면 정밀 위치 접근 및 알림 권한이 필요합니다. 이 없이도 코드를 안전하게 저장할 수 있지만 자동 알림은 불가능합니다.</string>
     <string name="onboarding_permissions_title">두 가지 권한</string>
     <string name="onboarding_ready_button">Sesame 사용 시작</string>
     <string name="onboarding_ready_subtitle">첫 번째 위치를 추가하는 것부터 시작하세요. 나머지는 Sesame이 처리합니다.</string>
@@ -78,7 +78,10 @@
     <string name="onboarding_security_title">추가 보안</string>
     <string name="onboarding_welcome_subtitle">건물 출입 코드를 항상 손끝에 — 필요할 때 자동으로 전달됩니다.</string>
     <string name="onboarding_welcome_title">Sesame에 오신 것을 환영합니다</string>
-    <string name="permission_location_banner">앱이 닫혀 있을 때 알림이 작동하려면 백그라운드 위치 접근 권한이 필요합니다.</string>
+    <string name="permission_location_none">도착 알림을 사용하려면 위치 권한이 필요합니다.</string>
+    <string name="permission_location_approximate">정밀 위치가 필요합니다. 설정에서 Sesame의 "정밀 위치 사용"을 활성화하세요.</string>
+    <string name="permission_location_foreground">앱이 닫혀 있을 때 도착 알림을 받으려면 백그라운드 위치 접근이 필요합니다.</string>
+    <string name="permission_location_services_off">위치 서비스가 꺼져 있습니다. 도착 알림을 받으려면 설정에서 활성화하세요.</string>
     <string name="permission_notification_banner">알림이 비활성화되어 있습니다. 저장된 위치에 도착해도 Sesame이 알림을 보낼 수 없습니다.</string>
     <string name="permission_open_settings">설정 열기</string>
     <string name="qr_generation_failed">QR 코드를 생성할 수 없습니다.

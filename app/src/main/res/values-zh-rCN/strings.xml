@@ -64,9 +64,9 @@
     <string name="onboarding_howitworks_feature3_title">私密且加密</string>
     <string name="onboarding_howitworks_title">工作原理</string>
     <string name="onboarding_permissions_button">授予权限</string>
-    <string name="onboarding_permissions_note">授予位置访问权限后，Android 会带您进入设置以启用“始终允许” — 自动到达提醒所必需。</string>
+    <string name="onboarding_permissions_note">授予位置权限时，请确保启用“使用精确位置”。随后您将被引导至第二个屏幕以启用“始终允许” — 两者均为自动到达提醒所必需。</string>
     <string name="onboarding_permissions_skip">暂时跳过</string>
-    <string name="onboarding_permissions_subtitle">Sesame 需要访问您的位置和通知权限，以便在您到达已保存地址时提醒您。没有这些权限，应用仍可安全存储您的代码——但无法自动通知您。</string>
+    <string name="onboarding_permissions_subtitle">Sesame 需要精确位置访问权限和通知权限，以便在您到达已保存地址时提醒您。没有这些权限，应用仍可安全存储您的代码——但无法自动通知您。</string>
     <string name="onboarding_permissions_title">两项权限</string>
     <string name="onboarding_ready_button">开始使用 Sesame</string>
     <string name="onboarding_ready_subtitle">从添加您的第一个位置开始。Sesame 会处理其余的事情。</string>
@@ -78,7 +78,10 @@
     <string name="onboarding_security_title">额外安全性</string>
     <string name="onboarding_welcome_subtitle">您的楼宇门禁代码，随时随手可得——需要时自动送达。</string>
     <string name="onboarding_welcome_title">欢迎使用 Sesame</string>
-    <string name="permission_location_banner">应用关闭时，需要后台位置访问权限才能接收通知。</string>
+    <string name="permission_location_none">到达提醒需要位置权限。</string>
+    <string name="permission_location_approximate">需要精确位置。请打开设置并为 Sesame 启用"使用精确位置"。</string>
+    <string name="permission_location_foreground">应用关闭时的到达提醒需要后台位置访问权限。</string>
+    <string name="permission_location_services_off">位置服务已关闭。请在设置中启用以接收到达提醒。</string>
     <string name="permission_notification_banner">通知已禁用。当您到达已保存位置时，Sesame 将无法提醒您。</string>
     <string name="permission_open_settings">打开设置</string>
     <string name="qr_generation_failed">无法生成 QR 码。

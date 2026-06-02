@@ -37,7 +37,8 @@ import kotlinx.coroutines.delay
 fun AboutScreen(
     onDismiss: () -> Unit,
     onReplayOnboarding: () -> Unit,
-    onResetAllData: () -> Unit
+    onResetAllData: () -> Unit,
+    onResetPermissionBanners: () -> Unit
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
@@ -154,12 +155,7 @@ fun AboutScreen(
                     icon = Icons.Default.PanTool,
                     iconTint = Color(0xFFFFB300),
                     onClick = {
-                        // Re-enable the permission banners on the list screen
-                        context.getSharedPreferences("sesame_prefs", android.content.Context.MODE_PRIVATE)
-                            .edit()
-                            .putBoolean("location_banner_dismissed", false)
-                            .putBoolean("notification_banner_dismissed", false)
-                            .apply()
+                        onResetPermissionBanners()
                         onDismiss()
                     }
                 )

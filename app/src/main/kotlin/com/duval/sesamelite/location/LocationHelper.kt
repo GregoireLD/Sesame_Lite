@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationManager
 import android.os.Build
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationRequest
@@ -13,8 +14,35 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.tasks.await
+
+enum class LocationPermissionState {
+    BACKGROUND,      // fine + background — geofencing fully works
+    FOREGROUND_ONLY, // fine but no background — geofencing only while app is open
+    APPROXIMATE,     // coarse only — geofencing won't work reliably
+    NONE             // no location permission at all
+}
 
 object LocationHelper {
+
+    fun getLocationPermissionState(context: Context): LocationPermissionState = when {
+        hasBackgroundLocationPermission(context) && hasFineLocationPermission(context) ->
+            LocationPermissionState.BACKGROUND
+        hasFineLocationPermission(context)       -> LocationPermissionState.FOREGROUND_ONLY
+        ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+            PackageManager.PERMISSION_GRANTED    -> LocationPermissionState.APPROXIMATE
+        else                                     -> LocationPermissionState.NONE
+    }
+
+    fun isLocationServicesEnabled(context: Context): Boolean {
+        val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            lm.isLocationEnabled
+        } else {
+            lm.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+            lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        }
+    }
 
     fun hasFineLocationPermission(context: Context) =
         ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) ==
@@ -27,6 +55,15 @@ object LocationHelper {
             ) == PackageManager.PERMISSION_GRANTED
         } else {
             hasFineLocationPermission(context)
+        }
+    }
+
+    suspend fun getLastKnownLocation(context: Context): Location? {
+        if (!hasFineLocationPermission(context)) return null
+        return try {
+            LocationServices.getFusedLocationProviderClient(context).lastLocation.await()
+        } catch (_: Exception) {
+            null
         }
     }
 

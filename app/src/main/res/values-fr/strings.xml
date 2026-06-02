@@ -64,9 +64,9 @@
     <string name="onboarding_howitworks_feature3_title">Privé et chiffré</string>
     <string name="onboarding_howitworks_title">Comment ça marche</string>
     <string name="onboarding_permissions_button">Autoriser l\'accès</string>
-    <string name="onboarding_permissions_note">Après avoir accordé l\'accès à la localisation, Android vous dirigera vers les paramètres pour activer « Toujours autoriser » — requis pour les alertes d\'arrivée automatiques.</string>
+    <string name="onboarding_permissions_note">Lors de la demande de localisation, veillez à activer « Localisation précise ». Vous serez ensuite redirigé vers un second écran pour activer « Toujours autoriser » — les deux sont requis pour les alertes d\'arrivée automatiques.</string>
     <string name="onboarding_permissions_skip">Passer pour l\'instant</string>
-    <string name="onboarding_permissions_subtitle">Sesame a besoin de votre localisation et des notifications pour vous alerter à l\'arrivée. Sans ces autorisations, l\'application peut toujours stocker vos codes en sécurité — mais ne pourra pas vous notifier automatiquement.</string>
+    <string name="onboarding_permissions_subtitle">Sesame a besoin d\'une localisation précise et des notifications pour vous alerter à l\'arrivée. Sans ces autorisations, l\'application peut toujours stocker vos codes en sécurité — mais ne pourra pas vous notifier automatiquement.</string>
     <string name="onboarding_permissions_title">Deux autorisations</string>
     <string name="onboarding_ready_button">Commencer à utiliser Sesame</string>
     <string name="onboarding_ready_subtitle">Commencez par ajouter votre premier emplacement. Sesame s\'occupe du reste.</string>
@@ -78,7 +78,10 @@
     <string name="onboarding_security_title">Sécurité renforcée</string>
     <string name="onboarding_welcome_subtitle">Vos codes d\'accès, toujours à portée de main — et affichés automatiquement quand vous en avez besoin.</string>
     <string name="onboarding_welcome_title">Bienvenue dans Sesame</string>
-    <string name="permission_location_banner">L\'accès à la localisation en arrière-plan est nécessaire pour recevoir les notifications lorsque l\'application est fermée.</string>
+    <string name="permission_location_none">L\'autorisation de localisation est requise pour les alertes d\'arrivée.</string>
+    <string name="permission_location_approximate">La localisation précise est requise. Ouvrez les paramètres et activez « Localisation précise » pour Sesame.</string>
+    <string name="permission_location_foreground">L\'accès à la localisation en arrière-plan est requis pour les alertes d\'arrivée lorsque l\'application est fermée.</string>
+    <string name="permission_location_services_off">La localisation est désactivée. Activez-la dans les paramètres pour recevoir les alertes d\'arrivée.</string>
     <string name="permission_notification_banner">Les notifications sont désactivées. Sesame ne pourra pas vous alerter à l\'arrivée.</string>
     <string name="permission_open_settings">Ouvrir les réglages</string>
     <string name="qr_generation_failed">Impossible de générer le QR code.

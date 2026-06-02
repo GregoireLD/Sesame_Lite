@@ -9,6 +9,7 @@ import com.duval.sesamelite.data.model.AccessCode
 import com.duval.sesamelite.data.repository.AccessCodeRepository
 import com.duval.sesamelite.geo.GeofenceManager
 import com.duval.sesamelite.location.LocationHelper
+import com.duval.sesamelite.location.LocationPermissionState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -23,12 +24,16 @@ data class ListUiState(
     val searchQuery: String = "",
     val sortOrder: SortOrder = SortOrder.ByDistance,
     val currentLocation: Location? = null,
-    val hasLocationPermission: Boolean = false,
-    val hasBackgroundLocationPermission: Boolean = false,
+    val locationPermissionState: LocationPermissionState = LocationPermissionState.NONE,
+    val locationServicesEnabled: Boolean = true,
     val hasNotificationPermission: Boolean = true,
     val locationBannerDismissed: Boolean = false,
     val notificationBannerDismissed: Boolean = false
-)
+) {
+    val hasLocationPermission: Boolean
+        get() = locationPermissionState == LocationPermissionState.FOREGROUND_ONLY ||
+                locationPermissionState == LocationPermissionState.BACKGROUND
+}
 
 class ListViewModel(app: Application) : AndroidViewModel(app) {
 
@@ -38,8 +43,8 @@ class ListViewModel(app: Application) : AndroidViewModel(app) {
     private val _sortOrder = MutableStateFlow(SortOrder.ByDistance)
     private val _searchQuery = MutableStateFlow("")
     private val _location = MutableStateFlow<Location?>(null)
-    private val _hasLocationPerm = MutableStateFlow(false)
-    private val _hasBackgroundLocationPerm = MutableStateFlow(false)
+    private val _locationPermState = MutableStateFlow(LocationPermissionState.NONE)
+    private val _locationServicesEnabled = MutableStateFlow(true)
     private val _hasNotificationPerm = MutableStateFlow(true)
     private val _locationBannerDismissed = MutableStateFlow(false)
     private val _notificationBannerDismissed = MutableStateFlow(false)
@@ -49,17 +54,19 @@ class ListViewModel(app: Application) : AndroidViewModel(app) {
         _searchQuery,
         _sortOrder,
         _location,
-        combine(_hasLocationPerm, _hasBackgroundLocationPerm, _hasNotificationPerm,
+        combine(_locationPermState, _locationServicesEnabled, _hasNotificationPerm,
                 _locationBannerDismissed, _notificationBannerDismissed) {
-            hasFine, hasBg, hasNotif, locDismissed, notifDismissed ->
-            listOf(hasFine, hasBg, hasNotif, locDismissed, notifDismissed)
+            permState, locEnabled, hasNotif, locDismissed, notifDismissed ->
+            listOf(permState, locEnabled, hasNotif, locDismissed, notifDismissed)
         }
     ) { entries, query, sort, loc, perms ->
-        val hasFine = perms[0] as Boolean
-        val hasBg = perms[1] as Boolean
+        val permState = perms[0] as LocationPermissionState
+        val locEnabled = perms[1] as Boolean
         val hasNotif = perms[2] as Boolean
         val locDismissed = perms[3] as Boolean
         val notifDismissed = perms[4] as Boolean
+        val hasFine = permState == LocationPermissionState.FOREGROUND_ONLY ||
+                      permState == LocationPermissionState.BACKGROUND
 
         val filtered = if (query.isEmpty()) entries else entries.filter { entry ->
             entry.label.contains(query, ignoreCase = true) ||
@@ -81,8 +88,8 @@ class ListViewModel(app: Application) : AndroidViewModel(app) {
             searchQuery = query,
             sortOrder = sort,
             currentLocation = loc,
-            hasLocationPermission = hasFine,
-            hasBackgroundLocationPermission = hasBg,
+            locationPermissionState = permState,
+            locationServicesEnabled = locEnabled,
             hasNotificationPermission = hasNotif,
             locationBannerDismissed = locDismissed,
             notificationBannerDismissed = notifDismissed
@@ -92,11 +99,21 @@ class ListViewModel(app: Application) : AndroidViewModel(app) {
     fun setSearchQuery(q: String) { _searchQuery.value = q }
     fun setSortOrder(order: SortOrder) { _sortOrder.value = order }
     fun setLocation(loc: Location?) { _location.value = loc }
-    fun setHasLocationPermission(has: Boolean) { _hasLocationPerm.value = has }
-    fun setHasBackgroundLocationPermission(has: Boolean) { _hasBackgroundLocationPerm.value = has }
+    fun setLocationPermissionState(state: LocationPermissionState) {
+        if (state != _locationPermState.value) _locationBannerDismissed.value = false
+        _locationPermState.value = state
+    }
+    fun setLocationServicesEnabled(enabled: Boolean) {
+        if (enabled != _locationServicesEnabled.value) _locationBannerDismissed.value = false
+        _locationServicesEnabled.value = enabled
+    }
     fun setHasNotificationPermission(has: Boolean) { _hasNotificationPerm.value = has }
     fun dismissLocationBanner() { _locationBannerDismissed.value = true }
     fun dismissNotificationBanner() { _notificationBannerDismissed.value = true }
+    fun resetPermissionBanners() {
+        _locationBannerDismissed.value = false
+        _notificationBannerDismissed.value = false
+    }
 
     fun toggleSilence(entry: AccessCode) {
         viewModelScope.launch {

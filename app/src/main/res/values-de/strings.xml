@@ -64,9 +64,9 @@
     <string name="onboarding_howitworks_feature3_title">Privat und verschlüsselt</string>
     <string name="onboarding_howitworks_title">So funktioniert es</string>
     <string name="onboarding_permissions_button">Berechtigungen erteilen</string>
-    <string name="onboarding_permissions_note">Nachdem du den Standortzugriff gewährt hast, führt Android dich zu den Einstellungen, um „Immer erlauben“ zu aktivieren — erforderlich für automatische Ankunftsmeldungen.</string>
+    <string name="onboarding_permissions_note">Stelle beim Gewähren des Standortzugriffs sicher, dass „Genauen Standort verwenden“ aktiviert ist. Anschließend wirst du zu einem zweiten Bildschirm weitergeleitet, um „Immer erlauben“ zu aktivieren — beides ist für automatische Ankunftsmeldungen erforderlich.</string>
     <string name="onboarding_permissions_skip">Vorerst überspringen</string>
-    <string name="onboarding_permissions_subtitle">Sesame benötigt Zugriff auf deinen Standort und Benachrichtigungen, um dich bei der Ankunft zu informieren. Ohne diese Berechtigungen kann die App deine Codes weiterhin sicher speichern — kann dich aber nicht automatisch benachrichtigen.</string>
+    <string name="onboarding_permissions_subtitle">Sesame benötigt Zugriff auf deinen genauen Standort und Benachrichtigungen, um dich bei der Ankunft zu informieren. Ohne diese Berechtigungen kann die App deine Codes weiterhin sicher speichern — kann dich aber nicht automatisch benachrichtigen.</string>
     <string name="onboarding_permissions_title">Zwei Berechtigungen</string>
     <string name="onboarding_ready_button">Sesame verwenden</string>
     <string name="onboarding_ready_subtitle">Füge zunächst deinen ersten Ort hinzu. Sesame kümmert sich um den Rest.</string>
@@ -78,7 +78,10 @@
     <string name="onboarding_security_title">Zusätzliche Sicherheit</string>
     <string name="onboarding_welcome_subtitle">Deine Zugangscodes, immer zur Hand — und automatisch angezeigt, wenn du sie brauchst.</string>
     <string name="onboarding_welcome_title">Willkommen bei Sesame</string>
-    <string name="permission_location_banner">Standortzugriff im Hintergrund ist erforderlich, damit Benachrichtigungen funktionieren, wenn die App geschlossen ist.</string>
+    <string name="permission_location_none">Standortberechtigung ist für Ankunftsbenachrichtigungen erforderlich.</string>
+    <string name="permission_location_approximate">Genauer Standort erforderlich. Öffne die Einstellungen und aktiviere „Genauen Standort verwenden" für Sesame.</string>
+    <string name="permission_location_foreground">Hintergrundzugriff auf den Standort ist erforderlich, damit Ankunftsmeldungen auch bei geschlossener App funktionieren.</string>
+    <string name="permission_location_services_off">Standortdienste sind deaktiviert. Aktiviere sie in den Einstellungen, um Ankunftsmeldungen zu erhalten.</string>
     <string name="permission_notification_banner">Benachrichtigungen sind deaktiviert. Sesame kann dich nicht benachrichtigen, wenn du einen gespeicherten Ort erreichst.</string>
     <string name="permission_open_settings">Einstellungen öffnen</string>
     <string name="qr_generation_failed">QR-Code konnte nicht generiert werden.

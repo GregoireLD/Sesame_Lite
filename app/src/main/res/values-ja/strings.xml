@@ -64,9 +64,9 @@
     <string name="onboarding_howitworks_feature3_title">プライベートで暗号化済み</string>
     <string name="onboarding_howitworks_title">使い方</string>
     <string name="onboarding_permissions_button">許可を与える</string>
-    <string name="onboarding_permissions_note">位置情報アクセスを許可した後、Androidは「常に許可」を有効にするために設定画面に移動します — 自動到着アラートに必要です。</string>
+    <string name="onboarding_permissions_note">位置情報を許可する際は、「正確な位置情報を使用する」がオンになっていることを確認してください。その後、「常に許可」を有効にするための2つ目の画面に移動します — 自動到着アラートにはどちらも必要です。</string>
     <string name="onboarding_permissions_skip">今はスキップ</string>
-    <string name="onboarding_permissions_subtitle">Sesameは登録した住所に到着したときにアラートするために、位置情報と通知へのアクセスが必要です。これらがなくてもコードを安全に保存できますが、自動通知はできません。</string>
+    <string name="onboarding_permissions_subtitle">Sesameは登録した住所に到着したときにアラートするために、精密な位置情報と通知へのアクセスが必要です。これらがなくてもコードを安全に保存できますが、自動通知はできません。</string>
     <string name="onboarding_permissions_title">2つの許可</string>
     <string name="onboarding_ready_button">Sesameを使い始める</string>
     <string name="onboarding_ready_subtitle">最初の場所を追加することから始めましょう。あとはSesameが対応します。</string>
@@ -78,7 +78,10 @@
     <string name="onboarding_security_title">追加のセキュリティ</string>
     <string name="onboarding_welcome_subtitle">建物のアクセスコードをいつでも手元に — 必要なときに自動的に届きます。</string>
     <string name="onboarding_welcome_title">Sesameへようこそ</string>
-    <string name="permission_location_banner">アプリが閉じているときに通知を機能させるには、バックグラウンドの位置情報アクセスが必要です。</string>
+    <string name="permission_location_none">到着アラートには位置情報の許可が必要です。</string>
+    <string name="permission_location_approximate">正確な位置情報が必要です。設定を開き、Sesameに「正確な位置情報を使用する」を有効にしてください。</string>
+    <string name="permission_location_foreground">アプリが閉じているときの到着アラートには、バックグラウンドでの位置情報アクセスが必要です。</string>
+    <string name="permission_location_services_off">位置情報サービスがオフになっています。到着アラートを受け取るには、設定で有効にしてください。</string>
     <string name="permission_notification_banner">通知が無効になっています。登録した場所に到着してもSesameはアラートできません。</string>
     <string name="permission_open_settings">設定を開く</string>
     <string name="qr_generation_failed">QRコードを生成できませんでした。

@@ -104,7 +104,8 @@ fun SesameNavGraph(
                     navController.popBackStack()
                     onReplayOnboarding()
                 },
-                onResetAllData = onResetAllData
+                onResetAllData = onResetAllData,
+                onResetPermissionBanners = listVm::resetPermissionBanners
             )
         }
 

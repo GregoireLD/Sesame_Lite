@@ -64,9 +64,9 @@
     <string name="onboarding_howitworks_feature3_title">خاص ومشفر</string>
     <string name="onboarding_howitworks_title">كيف يعمل</string>
     <string name="onboarding_permissions_button">منح الأذونات</string>
-    <string name="onboarding_permissions_note">بعد منح إذن الوصول إلى الموقع، سيأخذك Android إلى الإعدادات لتفعيل "السماح دائمًا" — وهو مطلوب لتنبيهات الوصول التلقائية.</string>
+    <string name="onboarding_permissions_note">عند منح إذن الموقع، تأكد من إبقاء "استخدام الموقع الدقيق" مفعّلاً. سيتم بعد ذلك توجيهك إلى شاشة ثانية لتفعيل "السماح دائمًا" — كلاهما مطلوب لتنبيهات الوصول التلقائية.</string>
     <string name="onboarding_permissions_skip">تخطي في الوقت الحالي</string>
-    <string name="onboarding_permissions_subtitle">يحتاج Sesame إلى موقعك والإشعارات لتنبيهك عند وصولك. بدون هذه الأذونات، يمكن للتطبيق تخزين رموزك بأمان — لكنه لن يتمكن من إخطارك تلقائيًا.</string>
+    <string name="onboarding_permissions_subtitle">يحتاج Sesame إلى الوصول الدقيق إلى موقعك والإشعارات لتنبيهك عند وصولك. بدون هذه الأذونات، يمكن للتطبيق تخزين رموزك بأمان — لكنه لن يتمكن من إخطارك تلقائيًا.</string>
     <string name="onboarding_permissions_title">إذنان ضروريان</string>
     <string name="onboarding_ready_button">ابدأ استخدام Sesame</string>
     <string name="onboarding_ready_subtitle">ابدأ بإضافة موقعك الأول. Sesame سيتولى الباقي.</string>
@@ -78,7 +78,10 @@
     <string name="onboarding_security_title">أمان إضافي</string>
     <string name="onboarding_welcome_subtitle">رموز دخول مبانيك، دائمًا في متناول يدك — وتُعرض تلقائيًا عند حاجتك إليها.</string>
     <string name="onboarding_welcome_title">مرحبًا بك في Sesame</string>
-    <string name="permission_location_banner">الوصول إلى الموقع في الخلفية مطلوب لعمل الإشعارات عند إغلاق التطبيق.</string>
+    <string name="permission_location_none">إذن الموقع مطلوب لتنبيهات الوصول.</string>
+    <string name="permission_location_approximate">الموقع الدقيق مطلوب. افتح الإعدادات وفعّل "استخدام الموقع الدقيق" لتطبيق Sesame.</string>
+    <string name="permission_location_foreground">الوصول إلى الموقع في الخلفية مطلوب لتنبيهات الوصول عند إغلاق التطبيق.</string>
+    <string name="permission_location_services_off">خدمات الموقع معطّلة. فعّلها في الإعدادات لتلقّي تنبيهات الوصول.</string>
     <string name="permission_notification_banner">الإشعارات معطلة. لن يتمكن Sesame من تنبيهك عند وصولك إلى موقع محفوظ.</string>
     <string name="permission_open_settings">فتح الإعدادات</string>
     <string name="qr_generation_failed">تعذر إنشاء رمز QR.

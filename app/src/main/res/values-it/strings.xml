@@ -64,9 +64,9 @@
     <string name="onboarding_howitworks_feature3_title">Privato e crittografato</string>
     <string name="onboarding_howitworks_title">Come funziona</string>
     <string name="onboarding_permissions_button">Concedi autorizzazioni</string>
-    <string name="onboarding_permissions_note">Dopo aver concesso l\'accesso alla posizione, Android ti porterà alle Impostazioni per abilitare "Consenti sempre" — necessario per gli avvisi di arrivo automatici.</string>
+    <string name="onboarding_permissions_note">Quando concedi l\'accesso alla posizione, assicurati di mantenere attivo "Usa posizione precisa". Verrai quindi reindirizzato a una seconda schermata per attivare "Consenti sempre" — entrambi sono necessari per gli avvisi di arrivo automatici.</string>
     <string name="onboarding_permissions_skip">Salta per ora</string>
-    <string name="onboarding_permissions_subtitle">Sesame ha bisogno dell\'accesso alla tua posizione e alle notifiche per avvisarti all\'arrivo. Senza questi permessi, l\'app può comunque archiviare i tuoi codici in modo sicuro — ma non potrà notificarti automaticamente.</string>
+    <string name="onboarding_permissions_subtitle">Sesame ha bisogno dell\'accesso preciso alla tua posizione e alle notifiche per avvisarti all\'arrivo. Senza questi permessi, l\'app può comunque archiviare i tuoi codici in modo sicuro — ma non potrà notificarti automaticamente.</string>
     <string name="onboarding_permissions_title">Due autorizzazioni</string>
     <string name="onboarding_ready_button">Inizia a usare Sesame</string>
     <string name="onboarding_ready_subtitle">Inizia aggiungendo il tuo primo luogo. Sesame si occuperà del resto.</string>
@@ -78,7 +78,10 @@
     <string name="onboarding_security_title">Sicurezza extra</string>
     <string name="onboarding_welcome_subtitle">I tuoi codici di accesso, sempre a portata di mano — e consegnati automaticamente quando ne hai bisogno.</string>
     <string name="onboarding_welcome_title">Benvenuto in Sesame</string>
-    <string name="permission_location_banner">L\'accesso alla posizione in background è necessario per far funzionare le notifiche quando l\'app è chiusa.</string>
+    <string name="permission_location_none">Il permesso di localizzazione è necessario per gli avvisi di arrivo.</string>
+    <string name="permission_location_approximate">È richiesta la posizione precisa. Apri Impostazioni e attiva "Usa posizione precisa" per Sesame.</string>
+    <string name="permission_location_foreground">L\'accesso alla posizione in background è necessario per gli avvisi di arrivo quando l\'app è chiusa.</string>
+    <string name="permission_location_services_off">I servizi di localizzazione sono disattivati. Attivali nelle Impostazioni per ricevere gli avvisi di arrivo.</string>
     <string name="permission_notification_banner">Le notifiche sono disabilitate. Sesame non potrà avvisarti quando arrivi in un luogo salvato.</string>
     <string name="permission_open_settings">Apri Impostazioni</string>
     <string name="qr_generation_failed">Impossibile generare il codice QR.

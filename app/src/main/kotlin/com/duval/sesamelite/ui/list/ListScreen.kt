@@ -29,6 +29,8 @@ import com.duval.sesamelite.R
 import com.duval.sesamelite.crypto.CryptoManager
 import com.duval.sesamelite.data.model.AccessCode
 import com.duval.sesamelite.location.LocationHelper
+import com.duval.sesamelite.location.LocationPermissionState
+import java.util.Locale
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,8 +50,8 @@ fun ListScreen(
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
-                vm.setHasLocationPermission(LocationHelper.hasFineLocationPermission(context))
-                vm.setHasBackgroundLocationPermission(LocationHelper.hasBackgroundLocationPermission(context))
+                vm.setLocationPermissionState(LocationHelper.getLocationPermissionState(context))
+                vm.setLocationServicesEnabled(LocationHelper.isLocationServicesEnabled(context))
                 vm.setHasNotificationPermission(LocationHelper.hasNotificationPermission(context))
             }
         }
@@ -57,10 +59,11 @@ fun ListScreen(
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
-    // Collect foreground location updates while the list is visible.
+    // Seed with last-known fix immediately, then keep updating with live location.
     // Restarted whenever permission changes (e.g. newly granted).
     LaunchedEffect(state.hasLocationPermission) {
         if (state.hasLocationPermission) {
+            LocationHelper.getLastKnownLocation(context)?.let { vm.setLocation(it) }
             LocationHelper.locationFlow(context).collect { location ->
                 vm.setLocation(location)
             }
@@ -132,12 +135,15 @@ fun ListScreen(
         // Permission banners — pinned to the bottom, matching iOS behaviour
         PermissionBanners(
             state = state,
-            onOpenSettings = {
+            onOpenAppSettings = {
                 context.startActivity(
                     Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                         data = Uri.fromParts("package", context.packageName, null)
                     }
                 )
+            },
+            onOpenLocationSettings = {
+                context.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
             },
             onDismissLocation = vm::dismissLocationBanner,
             onDismissNotification = vm::dismissNotificationBanner,
@@ -325,13 +331,25 @@ private fun EntryRow(
 @Composable
 private fun PermissionBanners(
     state: ListUiState,
-    onOpenSettings: () -> Unit,
+    onOpenAppSettings: () -> Unit,
+    onOpenLocationSettings: () -> Unit,
     onDismissLocation: () -> Unit,
     onDismissNotification: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val showLocationBanner = !state.hasBackgroundLocationPermission && !state.locationBannerDismissed
+    val locationMessage = when {
+        !state.locationServicesEnabled ->
+            stringResource(R.string.permission_location_services_off)
+        state.locationPermissionState == LocationPermissionState.NONE ->
+            stringResource(R.string.permission_location_none)
+        state.locationPermissionState == LocationPermissionState.APPROXIMATE ->
+            stringResource(R.string.permission_location_approximate)
+        state.locationPermissionState == LocationPermissionState.FOREGROUND_ONLY ->
+            stringResource(R.string.permission_location_foreground)
+        else -> null
+    }
     val showNotifBanner = !state.hasNotificationPermission && !state.notificationBannerDismissed
+    val showLocationBanner = locationMessage != null && !state.locationBannerDismissed
 
     if (!showLocationBanner && !showNotifBanner) return
 
@@ -345,15 +363,15 @@ private fun PermissionBanners(
             PermissionBannerCard(
                 icon = Icons.Default.NotificationsOff,
                 message = stringResource(R.string.permission_notification_banner),
-                onSettings = onOpenSettings,
+                onSettings = onOpenAppSettings,
                 onDismiss = onDismissNotification
             )
         }
-        if (showLocationBanner) {
+        if (locationMessage != null && !state.locationBannerDismissed) {
             PermissionBannerCard(
                 icon = Icons.Default.LocationOff,
-                message = stringResource(R.string.permission_location_banner),
-                onSettings = onOpenSettings,
+                message = locationMessage,
+                onSettings = if (!state.locationServicesEnabled) onOpenLocationSettings else onOpenAppSettings,
                 onDismiss = onDismissLocation
             )
         }
@@ -401,8 +419,15 @@ private fun openInMaps(context: Context, lat: Double, lon: Double, label: String
 }
 
 private fun formatDistance(meters: Float): String {
-    return if (meters < 1000) "${meters.roundToInt()} m"
-    else "%.1f km".format(meters / 1000)
+    val locale = Locale.getDefault()
+    return if (locale.country in setOf("US", "LR", "MM")) {
+        val feet = meters * 3.28084f
+        if (feet < 1000f) "${feet.roundToInt()} ft"
+        else String.format(locale, "%.1f mi", feet / 5280f)
+    } else {
+        if (meters < 1000f) "${meters.roundToInt()} m"
+        else String.format(locale, "%.1f km", meters / 1000f)
+    }
 }
 
 @Composable
