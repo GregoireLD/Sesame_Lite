@@ -8,6 +8,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.PersistableBundle
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -23,7 +24,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.duval.sesamelite.R
 import com.duval.sesamelite.crypto.CryptoManager
 
@@ -113,30 +113,24 @@ fun DetailScreen(
                         val showCode = state.showCode
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            val displayText = if (showCode) plainCode else "•".repeat(plainCode.length)
                             Text(
-                                displayText,
+                                if (showCode) plainCode else "•".repeat(plainCode.length),
                                 fontFamily = FontFamily.Monospace,
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.Medium
+                                fontWeight = FontWeight.Medium,
+                                modifier = Modifier.weight(1f)
                             )
-                            Row {
-                                IconButton(onClick = vm::toggleShowCode) {
-                                    Icon(
-                                        if (showCode) Icons.Default.VisibilityOff else Icons.Default.Visibility,
-                                        null
-                                    )
+                            if (showCode) {
+                                IconButton(onClick = { copyToClipboard(context, plainCode, isSensitive = true) }) {
+                                    Icon(Icons.Default.ContentCopy, null)
                                 }
-                                if (showCode) {
-                                    IconButton(onClick = {
-                                        copyToClipboard(context, plainCode, isSensitive = true)
-                                    }) {
-                                        Icon(Icons.Default.ContentCopy, stringResource(R.string.action_copy))
-                                    }
-                                }
+                            }
+                            IconButton(onClick = vm::toggleShowCode) {
+                                Icon(
+                                    if (showCode) Icons.Default.VisibilityOff else Icons.Default.Visibility,
+                                    null
+                                )
                             }
                         }
                     }
@@ -149,18 +143,25 @@ fun DetailScreen(
             // Address section
             if (!plainAddress.isNullOrEmpty()) {
                 val isUnresolved = entry.encryptedLatitude == null && entry.encryptedLongitude == null
+                val lat = if (!isUnresolved) vm.repo.decryptedLatitude(entry) else null
+                val lon = if (!isUnresolved) vm.repo.decryptedLongitude(entry) else null
                 DetailSectionCard(title = stringResource(R.string.address_header)) {
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.Top,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .then(
+                                if (lat != null && lon != null)
+                                    Modifier.clickable { openInMaps(context, lat, lon, entry.label) }
+                                else Modifier
+                            ),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
                             if (isUnresolved) Icons.Default.LocationOff else Icons.Default.LocationOn,
                             null,
-                            tint = if (isUnresolved) Color(0xFFFF9500) else Color(0xFF34C759),
-                            modifier = Modifier.padding(top = 2.dp)
+                            tint = if (isUnresolved) Color(0xFFFF9500) else Color(0xFF34C759)
                         )
+                        Spacer(Modifier.width(8.dp))
                         Column(modifier = Modifier.weight(1f)) {
                             Text(plainAddress)
                             if (isUnresolved) {
@@ -171,22 +172,9 @@ fun DetailScreen(
                                 )
                             }
                         }
-                        if (!isUnresolved) {
-                            val lat = vm.repo.decryptedLatitude(entry)
-                            val lon = vm.repo.decryptedLongitude(entry)
-                            if (lat != null && lon != null) {
-                                IconButton(onClick = {
-                                    openInMaps(context, lat, lon, entry.label)
-                                }) {
-                                    Icon(Icons.Default.OpenInNew, null, tint = Color(0xFF34C759))
-                                }
-                            }
+                        IconButton(onClick = { copyToClipboard(context, plainAddress) }) {
+                            Icon(Icons.Default.ContentCopy, null)
                         }
-                    }
-                    TextButton(onClick = { copyToClipboard(context, plainAddress) }) {
-                        Icon(Icons.Default.ContentCopy, null, modifier = Modifier.size(16.dp))
-                        Spacer(Modifier.width(4.dp))
-                        Text(stringResource(R.string.action_copy))
                     }
                 }
             }
@@ -202,15 +190,11 @@ fun DetailScreen(
                         Icon(Icons.Default.RadioButtonUnchecked, null, tint = MaterialTheme.colorScheme.outline)
                         Text("${entry.radiusMeters.toInt()} m")
                     }
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Box(Modifier.size(48.dp), contentAlignment = Alignment.Center) {
                         Icon(
-                            if (entry.isSilenced) Icons.Default.NotificationsOff else Icons.Default.Notifications,
+                            if (entry.isSilenced) Icons.Default.NotificationsOff else Icons.Default.NotificationsActive,
                             null,
                             tint = if (entry.isSilenced) MaterialTheme.colorScheme.outline else Color(0xFFFF9500)
-                        )
-                        Text(
-                            stringResource(if (entry.isSilenced) R.string.detail_silenced else R.string.detail_active),
-                            color = if (entry.isSilenced) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface
                         )
                     }
                 }
@@ -219,10 +203,10 @@ fun DetailScreen(
             // Location details
             if (!plainLocationDetails.isNullOrEmpty()) {
                 DetailSectionCard(title = stringResource(R.string.location_details_header)) {
-                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top) {
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                         Text(plainLocationDetails, modifier = Modifier.weight(1f))
                         IconButton(onClick = { copyToClipboard(context, plainLocationDetails) }) {
-                            Icon(Icons.Default.ContentCopy, null, modifier = Modifier.size(18.dp))
+                            Icon(Icons.Default.ContentCopy, null)
                         }
                     }
                 }
@@ -231,10 +215,10 @@ fun DetailScreen(
             // Comment
             if (!plainComment.isNullOrEmpty()) {
                 DetailSectionCard(title = stringResource(R.string.comment_header)) {
-                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top) {
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                         Text(plainComment, modifier = Modifier.weight(1f))
                         IconButton(onClick = { copyToClipboard(context, plainComment) }) {
-                            Icon(Icons.Default.ContentCopy, null, modifier = Modifier.size(18.dp))
+                            Icon(Icons.Default.ContentCopy, null)
                         }
                     }
                 }

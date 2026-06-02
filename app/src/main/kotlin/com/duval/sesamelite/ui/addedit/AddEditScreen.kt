@@ -232,7 +232,7 @@ fun AddEditScreen(
                     Spacer(Modifier.width(8.dp))
                     IconButton(onClick = vm::onSilencedToggle) {
                         Icon(
-                            if (state.isSilenced) Icons.Default.NotificationsOff else Icons.Default.Notifications,
+                            if (state.isSilenced) Icons.Default.NotificationsOff else Icons.Default.NotificationsActive,
                             null,
                             tint = if (state.isSilenced) MaterialTheme.colorScheme.outline else Color(0xFFFF9500)
                         )
