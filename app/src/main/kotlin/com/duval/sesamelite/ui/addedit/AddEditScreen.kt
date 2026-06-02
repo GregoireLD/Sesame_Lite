@@ -215,6 +215,14 @@ fun AddEditScreen(
                             Icon(Icons.Default.CheckCircle, null, tint = Color(0xFF34C759), modifier = Modifier.size(20.dp))
                             Spacer(Modifier.width(8.dp))
                             Text(stringResource(R.string.address_found), color = Color(0xFF34C759))
+                            if (state.latitude != null && state.longitude != null) {
+                                Spacer(Modifier.width(8.dp))
+                                Text(
+                                    "%.5f, %.5f".format(state.latitude, state.longitude),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
                         }
                         else -> {
                             TextButton(
@@ -231,14 +239,9 @@ fun AddEditScreen(
                 state.geoError?.let { err ->
                     Text(err, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
                 }
-                if (state.geoState == GeoState.Resolved && state.latitude != null && state.longitude != null) {
-                    Text(
-                        "%.5f, %.5f".format(state.latitude, state.longitude),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                if (state.geoState != GeoState.Resolved) {
+                    Text(stringResource(R.string.address_footer), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
-                Text(stringResource(R.string.address_footer), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             // Radius & Silence
