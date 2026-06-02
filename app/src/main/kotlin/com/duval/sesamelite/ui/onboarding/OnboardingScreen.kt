@@ -70,48 +70,50 @@ fun OnboardingScreen(onComplete: () -> Unit) {
         prevPage = current
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        HorizontalPager(
-            state = pagerState,
-            modifier = Modifier.fillMaxSize()
-        ) { page ->
-            when (page) {
-                0 -> WelcomePage()
-                1 -> HowItWorksPage()
-                2 -> PermissionsPage(
-                    onGrant = {
-                        scope.launch { pagerState.animateScrollToPage(3) }
-                    },
-                    onSkip = {
-                        skipPermissions = true
-                        scope.launch { pagerState.animateScrollToPage(3) }
-                    }
-                )
-                3 -> SecurityPage()
-                4 -> ReadyPage(onComplete = onComplete)
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.fillMaxSize()
+            ) { page ->
+                when (page) {
+                    0 -> WelcomePage()
+                    1 -> HowItWorksPage()
+                    2 -> PermissionsPage(
+                        onGrant = {
+                            scope.launch { pagerState.animateScrollToPage(3) }
+                        },
+                        onSkip = {
+                            skipPermissions = true
+                            scope.launch { pagerState.animateScrollToPage(3) }
+                        }
+                    )
+                    3 -> SecurityPage()
+                    4 -> ReadyPage(onComplete = onComplete)
+                }
             }
-        }
 
-        // Page indicator dots
-        Row(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 24.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            repeat(5) { index ->
-                val isCurrent = pagerState.currentPage == index
-                val dotColor = if (isCurrent)
-                    MaterialTheme.colorScheme.onBackground
-                else
-                    MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
-                Box(
-                    modifier = Modifier
-                        .size(if (isCurrent) 20.dp else 8.dp, 8.dp)
-                        .clip(RoundedCornerShape(50))
-                        .background(dotColor)
-                )
+            // Page indicator dots
+            Row(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 24.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                repeat(5) { index ->
+                    val isCurrent = pagerState.currentPage == index
+                    val dotColor = if (isCurrent)
+                        MaterialTheme.colorScheme.onBackground
+                    else
+                        MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
+                    Box(
+                        modifier = Modifier
+                            .size(if (isCurrent) 20.dp else 8.dp, 8.dp)
+                            .clip(RoundedCornerShape(50))
+                            .background(dotColor)
+                    )
+                }
             }
         }
     }
