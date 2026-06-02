@@ -2,10 +2,7 @@ name: Build APK
 
 on:
   push:
-    branches: [main]
     tags: ["v*"]
-  pull_request:
-    branches: [main]
 
 permissions:
   contents: write
@@ -34,7 +31,6 @@ jobs:
         run: ./gradlew assembleDebug
 
       - name: Upload debug APK
-        if: "!startsWith(github.ref, 'refs/tags/v')"
         uses: actions/upload-artifact@v4
         with:
           name: Sesame_Lite-debug-${{ github.sha }}
