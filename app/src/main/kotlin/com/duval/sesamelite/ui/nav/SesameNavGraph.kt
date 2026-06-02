@@ -26,6 +26,8 @@ fun SesameNavGraph(
     startDestination: String = NavRoutes.LIST,
     pendingImportUri: String?,
     onImportConsumed: () -> Unit,
+    pendingEntryId: String?,
+    onEntryIdConsumed: () -> Unit,
     onReplayOnboarding: () -> Unit,
     onResetAllData: () -> Unit
 ) {
@@ -37,6 +39,14 @@ fun SesameNavGraph(
             val encoded = java.net.URLEncoder.encode(pendingImportUri, "UTF-8")
             navController.navigate("${NavRoutes.IMPORT}?uri=$encoded")
             onImportConsumed()
+        }
+    }
+
+    // Handle notification tap deep link to a specific entry
+    LaunchedEffect(pendingEntryId) {
+        if (pendingEntryId != null) {
+            navController.navigate(NavRoutes.detailRoute(pendingEntryId))
+            onEntryIdConsumed()
         }
     }
 

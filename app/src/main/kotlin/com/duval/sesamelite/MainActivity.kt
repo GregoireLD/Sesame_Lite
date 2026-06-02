@@ -16,7 +16,6 @@ import com.duval.sesamelite.crypto.KeyAvailabilityMonitor
 import com.duval.sesamelite.data.db.AppDatabase
 import com.duval.sesamelite.geo.GeofenceManager
 import com.duval.sesamelite.notification.NotificationHelper
-import com.duval.sesamelite.ui.nav.NavRoutes
 import com.duval.sesamelite.ui.nav.SesameNavGraph
 import com.duval.sesamelite.ui.onboarding.OnboardingScreen
 import com.duval.sesamelite.ui.theme.SesameLiteTheme
@@ -36,9 +35,14 @@ class MainActivity : ComponentActivity() {
 
     private val keyMonitor = KeyAvailabilityMonitor()
 
+    private val pendingImportUriState = mutableStateOf<String?>(null)
+    private val pendingEntryIdState = mutableStateOf<String?>(null)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        handleIncomingIntent(intent)
 
         val onboardingDone = runBlocking {
             dataStore.data.map { it[ONBOARDING_DONE] ?: false }.first()
@@ -48,7 +52,8 @@ class MainActivity : ComponentActivity() {
             SesameLiteTheme {
                 val navController = rememberNavController()
                 var showOnboarding by remember { mutableStateOf(!onboardingDone) }
-                var pendingImportUri by remember { mutableStateOf(extractSesameUri(intent)) }
+                val pendingImportUri by pendingImportUriState
+                val pendingEntryId by pendingEntryIdState
 
                 when {
                     showOnboarding -> {
@@ -63,7 +68,9 @@ class MainActivity : ComponentActivity() {
                         SesameNavGraph(
                             navController = navController,
                             pendingImportUri = pendingImportUri,
-                            onImportConsumed = { pendingImportUri = null },
+                            onImportConsumed = { pendingImportUriState.value = null },
+                            pendingEntryId = pendingEntryId,
+                            onEntryIdConsumed = { pendingEntryIdState.value = null },
                             onReplayOnboarding = { showOnboarding = true },
                             onResetAllData = {
                                 CoroutineScope(Dispatchers.IO).launch {
@@ -77,31 +84,26 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
-        handleNotificationIntent(intent)  // no-op currently
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        handleNotificationIntent(intent)
+        handleIncomingIntent(intent)
     }
 
-    private fun extractSesameUri(intent: Intent?): String? {
-        intent ?: return null
+    private fun handleIncomingIntent(intent: Intent?) {
+        intent ?: return
+        val entryId = intent.getStringExtra(NotificationHelper.EXTRA_ENTRY_ID)
+        if (entryId != null) {
+            pendingEntryIdState.value = entryId
+            return
+        }
         if (intent.action == Intent.ACTION_VIEW) {
-            val data = intent.data ?: return null
+            val data = intent.data ?: return
             if (data.scheme == "sesame" && data.host == "import") {
-                return data.toString()
+                pendingImportUriState.value = data.toString()
             }
         }
-        return null
-    }
-
-    private fun handleNotificationIntent(intent: Intent?) {
-        // Notification taps open MainActivity with the entry ID extra.
-        // The activity is already set up; tapping navigates to the list
-        // and the detail screen can be opened from there.
-        // Deep-linking via sesame://import is handled in extractSesameUri.
     }
 }
