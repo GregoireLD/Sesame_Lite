@@ -88,6 +88,29 @@ fun AddEditScreen(
         )
     }
 
+    if (state.showDuplicateWarning) {
+        AlertDialog(
+            onDismissRequest = vm::dismissDuplicateWarning,
+            title = { Text(stringResource(R.string.duplicate_warning_title)) },
+            text = { Text(stringResource(R.string.duplicate_warning_message)) },
+            confirmButton = {
+                Column(horizontalAlignment = Alignment.End) {
+                    TextButton(onClick = vm::confirmReplaceMatch) {
+                        Text(stringResource(R.string.duplicate_replace))
+                    }
+                    TextButton(onClick = vm::confirmSaveAnyway) {
+                        Text(stringResource(R.string.duplicate_create_anyway))
+                    }
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = vm::dismissDuplicateWarning) {
+                    Text(stringResource(R.string.action_cancel))
+                }
+            }
+        )
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(

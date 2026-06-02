@@ -147,4 +147,8 @@ Make sure the entry is fully saved.</string>
     <string name="clipboard_error_message">The clipboard doesn\'t contain a valid Sesame link.</string>
     <string name="delete_confirm_title">Delete Entry</string>
     <string name="delete_confirm_message">This entry will be permanently deleted.</string>
+    <string name="duplicate_warning_title">Possible Duplicate</string>
+    <string name="duplicate_warning_message">An entry with the same label and address already exists. You can replace it with this one, save as a separate entry, or go back to keep editing.</string>
+    <string name="duplicate_replace">Replace existing</string>
+    <string name="duplicate_create_anyway">Create anyway</string>
 </resources>

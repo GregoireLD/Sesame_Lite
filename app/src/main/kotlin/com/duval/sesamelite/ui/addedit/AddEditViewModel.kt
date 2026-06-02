@@ -45,6 +45,8 @@ data class AddEditUiState(
     val showClipboardOverwrite: Boolean = false,
     val pendingClipboardImport: ParsedImport? = null,
     val showDeleteConfirm: Boolean = false,
+    val showDuplicateWarning: Boolean = false,
+    val duplicateMatchId: String? = null,
     val saved: Boolean = false,
     val deleted: Boolean = false
 ) {
@@ -61,6 +63,7 @@ class AddEditViewModel(app: Application) : AndroidViewModel(app) {
     val state: StateFlow<AddEditUiState> = _state.asStateFlow()
 
     private var editingId: String? = null
+    private var pendingEntry: AccessCode? = null
 
     // ---------------------------------------------------------------------------
     // Initialise for add, edit, or import
@@ -221,7 +224,7 @@ class AddEditViewModel(app: Application) : AndroidViewModel(app) {
     // ---------------------------------------------------------------------------
 
     fun importFromClipboard(rawClipText: String?) {
-        val clipText = rawClipText?.trim()
+        val clipText = rawClipText?.trim()?.trimEnd('.')
         if (clipText.isNullOrEmpty()) {
             _state.value = _state.value.copy(showClipboardError = true)
             return
@@ -333,6 +336,15 @@ class AddEditViewModel(app: Application) : AndroidViewModel(app) {
         )
 
         viewModelScope.launch {
+            val duplicate = repo.findDuplicateByLabelAndAddress(s.label, s.address, editingId)
+            if (duplicate != null) {
+                pendingEntry = entry
+                _state.value = _state.value.copy(
+                    showDuplicateWarning = true,
+                    duplicateMatchId = duplicate.id
+                )
+                return@launch
+            }
             repo.save(entry)
             GeofenceManager.registerAll(getApplication(), dao.getAll(), null)
             _state.value = _state.value.copy(saved = true)
@@ -353,6 +365,44 @@ class AddEditViewModel(app: Application) : AndroidViewModel(app) {
             repo.delete(entry)
             GeofenceManager.removeEntry(getApplication(), id)
             _state.value = _state.value.copy(deleted = true, showDeleteConfirm = false)
+        }
+    }
+
+    // ---------------------------------------------------------------------------
+    // Duplicate warning
+    // ---------------------------------------------------------------------------
+
+    fun dismissDuplicateWarning() {
+        pendingEntry = null
+        _state.value = _state.value.copy(showDuplicateWarning = false, duplicateMatchId = null)
+    }
+
+    /** Replace the existing matching entry with the new data (keeps the duplicate's id). */
+    fun confirmReplaceMatch() {
+        val entry = pendingEntry ?: return
+        val matchId = _state.value.duplicateMatchId ?: return
+        val replacement = entry.copy(id = matchId)
+        viewModelScope.launch {
+            repo.save(replacement)
+            val wasEditing = editingId
+            if (wasEditing != null && wasEditing != matchId) {
+                dao.getById(wasEditing)?.let { repo.delete(it) }
+                GeofenceManager.removeEntry(getApplication(), wasEditing)
+            }
+            GeofenceManager.registerAll(getApplication(), dao.getAll(), null)
+            pendingEntry = null
+            _state.value = _state.value.copy(saved = true, showDuplicateWarning = false, duplicateMatchId = null)
+        }
+    }
+
+    /** Ignore the duplicate and save as a new/separate entry. */
+    fun confirmSaveAnyway() {
+        val entry = pendingEntry ?: return
+        viewModelScope.launch {
+            repo.save(entry)
+            GeofenceManager.registerAll(getApplication(), dao.getAll(), null)
+            pendingEntry = null
+            _state.value = _state.value.copy(saved = true, showDuplicateWarning = false, duplicateMatchId = null)
         }
     }
 

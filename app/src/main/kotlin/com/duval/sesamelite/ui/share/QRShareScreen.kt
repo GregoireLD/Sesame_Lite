@@ -89,50 +89,52 @@ fun QRShareScreen(
             }
 
             // Options
-            Card(modifier = Modifier.fillMaxWidth()) {
-                Column(modifier = Modifier.padding(8.dp)) {
-                    Text(
-                        stringResource(R.string.qr_options_header).uppercase(),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(start = 8.dp, bottom = 4.dp)
-                    )
-                    SwitchRow(
-                        label = stringResource(R.string.qr_option_radius),
-                        checked = state.includeRadius,
-                        onCheckedChange = vm::setIncludeRadius,
-                        icon = Icons.Default.LocationOn
-                    )
-                    SwitchRow(
-                        label = stringResource(R.string.qr_option_location_details),
-                        checked = state.includeLocationDetails,
-                        onCheckedChange = vm::setIncludeLocationDetails,
-                        icon = Icons.Default.Info,
-                        iconTint = Color(0xFFFF9500)
-                    )
-                    SwitchRow(
-                        label = stringResource(R.string.qr_option_comment),
-                        checked = state.includeComment,
-                        onCheckedChange = vm::setIncludeComment,
-                        icon = Icons.Default.Comment,
-                        iconTint = MaterialTheme.colorScheme.tertiary
-                    )
-                    if (showHidden) {
-                        HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    stringResource(R.string.qr_options_header).uppercase(),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+                Card(modifier = Modifier.fillMaxWidth()) {
+                    Column(modifier = Modifier.padding(8.dp)) {
                         SwitchRow(
-                            label = stringResource(R.string.qr_option_exclude_coordinates),
-                            checked = !state.includeCoordinates,
-                            onCheckedChange = { vm.setIncludeCoordinates(!it) },
-                            icon = Icons.Default.LocationOff,
-                            iconTint = Color(0xFF9B59B6)
+                            label = stringResource(R.string.qr_option_radius),
+                            checked = state.includeRadius,
+                            onCheckedChange = vm::setIncludeRadius,
+                            icon = Icons.Default.LocationOn
                         )
                         SwitchRow(
-                            label = stringResource(R.string.qr_option_legacy_scheme),
-                            checked = state.useLegacyScheme,
-                            onCheckedChange = vm::setUseLegacyScheme,
-                            icon = Icons.Default.Link,
-                            iconTint = Color(0xFF9B59B6)
+                            label = stringResource(R.string.qr_option_location_details),
+                            checked = state.includeLocationDetails,
+                            onCheckedChange = vm::setIncludeLocationDetails,
+                            icon = Icons.Default.Info,
+                            iconTint = Color(0xFFFF9500)
                         )
+                        SwitchRow(
+                            label = stringResource(R.string.qr_option_comment),
+                            checked = state.includeComment,
+                            onCheckedChange = vm::setIncludeComment,
+                            icon = Icons.Default.Comment,
+                            iconTint = MaterialTheme.colorScheme.tertiary
+                        )
+                        if (showHidden) {
+                            HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+                            SwitchRow(
+                                label = stringResource(R.string.qr_option_exclude_coordinates),
+                                checked = !state.includeCoordinates,
+                                onCheckedChange = { vm.setIncludeCoordinates(!it) },
+                                icon = Icons.Default.LocationOff,
+                                iconTint = Color(0xFF9B59B6)
+                            )
+                            SwitchRow(
+                                label = stringResource(R.string.qr_option_legacy_scheme),
+                                checked = state.useLegacyScheme,
+                                onCheckedChange = vm::setUseLegacyScheme,
+                                icon = Icons.Default.Link,
+                                iconTint = Color(0xFF9B59B6)
+                            )
+                        }
                     }
                 }
             }

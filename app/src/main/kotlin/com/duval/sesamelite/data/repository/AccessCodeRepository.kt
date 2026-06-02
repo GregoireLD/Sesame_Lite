@@ -20,6 +20,16 @@ class AccessCodeRepository(private val dao: AccessCodeDao) {
 
     suspend fun delete(code: AccessCode) = dao.delete(code)
 
+    /** Returns the first existing entry whose label and decrypted address both match, excluding [excludeId]. */
+    suspend fun findDuplicateByLabelAndAddress(label: String, address: String, excludeId: String?): AccessCode? {
+        if (address.isEmpty()) return null
+        return dao.getAll().firstOrNull { entry ->
+            entry.id != excludeId &&
+            entry.label.equals(label, ignoreCase = true) &&
+            decryptedAddress(entry)?.equals(address, ignoreCase = true) == true
+        }
+    }
+
     suspend fun deleteAll() = dao.deleteAll()
 
     // Decrypted accessors — never in the entity, always via the repository
