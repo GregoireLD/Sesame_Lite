@@ -33,6 +33,10 @@
     <string name="address_warning_message">هذا الإدخال ليس له موقع محلول. لن يعمل السياج الجغرافي حتى تقوم بتعديله والبحث عن عنوان صالح.</string>
     <string name="address_warning_save_anyway">حفظ على أي حال</string>
     <string name="address_warning_title">العنوان غير موجود</string>
+    <string name="duplicate_warning_title">تكرار محتمل</string>
+    <string name="duplicate_warning_message">يوجد إدخال بنفس التسمية والعنوان بالفعل. يمكنك استبداله بهذا، أو حفظه كإدخال منفصل، أو العودة لمواصلة التعديل.</string>
+    <string name="duplicate_replace">استبدال الموجود</string>
+    <string name="duplicate_create_anyway">إنشاء على أي حال</string>
     <string name="cancel">إلغاء</string>
     <string name="clipboard">الحافظة</string>
     <string name="code_footer">رمز PIN أو رمز الدخول لهذا الموقع.</string>

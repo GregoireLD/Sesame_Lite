@@ -33,6 +33,10 @@
     <string name="address_warning_message">Questa voce non ha una posizione risolta. Il geofencing non funzionerà finché non la modifichi e cerchi un indirizzo valido.</string>
     <string name="address_warning_save_anyway">Salva comunque</string>
     <string name="address_warning_title">Indirizzo non trovato</string>
+    <string name="duplicate_warning_title">Possibile duplicato</string>
+    <string name="duplicate_warning_message">Esiste già una voce con la stessa etichetta e lo stesso indirizzo. Puoi sostituirla con questa, salvarla come voce separata o tornare indietro per continuare a modificare.</string>
+    <string name="duplicate_replace">Sostituisci esistente</string>
+    <string name="duplicate_create_anyway">Crea comunque</string>
     <string name="cancel">Annulla</string>
     <string name="clipboard">Appunti</string>
     <string name="code_footer">Il PIN o codice di accesso per questo luogo.</string>

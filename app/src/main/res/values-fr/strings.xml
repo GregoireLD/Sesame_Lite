@@ -16,11 +16,11 @@
     <string name="action_cancel">Annuler</string>
     <string name="action_close">Fermer</string>
     <string name="action_copy">Copier</string>
-    <string name="action_delete">Supprimer l\'entrée</string>
+    <string name="action_delete">Supprimer la fiche</string>
     <string name="action_dismiss">Ignorer</string>
     <string name="action_maps">Plans</string>
     <string name="action_ok">OK</string>
-    <string name="add_title">Nouvelle entrée</string>
+    <string name="add_title">Nouvelle fiche</string>
     <string name="address_error_empty">Saisissez une adresse à rechercher.</string>
     <string name="address_error_generic">Adresse introuvable : %1$s</string>
     <string name="address_error_not_found">Aucun résultat trouvé pour cette adresse.</string>
@@ -30,9 +30,13 @@
     <string name="address_look_up">Rechercher l\'adresse</string>
     <string name="address_looking_up">Recherche en cours…</string>
     <string name="address_placeholder">ex. 12 Rue de Rivoli, Paris</string>
-    <string name="address_warning_message">Cette entrée n\'a pas de localisation résolue. Le géofencing ne fonctionnera pas jusqu\'à ce que vous la modifiiez et résolviez une adresse valide.</string>
+    <string name="address_warning_message">Cette fiche n\'a pas de localisation résolue. Le géofencing ne fonctionnera pas jusqu\'à ce que vous la modifiiez et résolviez une adresse valide.</string>
     <string name="address_warning_save_anyway">Enregistrer quand même</string>
     <string name="address_warning_title">Adresse introuvable</string>
+    <string name="duplicate_warning_title">Doublon possible</string>
+    <string name="duplicate_warning_message">Une fiche avec le même libellé et la même adresse existe déjà. Vous pouvez la remplacer par celle-ci, l\'enregistrer comme fiche séparée, ou revenir pour continuer à modifier.</string>
+    <string name="duplicate_replace">Remplacer l\'existant</string>
+    <string name="duplicate_create_anyway">Créer quand même</string>
     <string name="cancel">Annuler</string>
     <string name="clipboard">Presse-papiers</string>
     <string name="code_footer">Le code PIN ou code d\'accès pour cet emplacement.</string>
@@ -43,7 +47,7 @@
     <string name="comment_placeholder">ex. Sonner deux fois avant d\'entrer</string>
     <string name="detail_title">Fiche</string>
     <string name="done">Valider</string>
-    <string name="edit_title">Modifier l\'entrée</string>
+    <string name="edit_title">Modifier la fiche</string>
     <string name="empty_add_button">Ajouter un code d\'accès</string>
     <string name="empty_subtitle">Appuyez sur + pour ajouter votre premier emplacement et code d\'accès.</string>
     <string name="empty_title">Aucun code d\'accès</string>
@@ -85,7 +89,7 @@
     <string name="permission_notification_banner">Les notifications sont désactivées. Sesame ne pourra pas vous alerter à l\'arrivée.</string>
     <string name="permission_open_settings">Ouvrir les réglages</string>
     <string name="qr_generation_failed">Impossible de générer le QR code.
-Assurez-vous que l\'entrée est bien enregistrée.</string>
+Assurez-vous que la fiche est bien enregistrée.</string>
     <string name="qr_option_comment">Commentaire</string>
     <string name="qr_option_exclude_coordinates">Exclure les coordonnées GPS</string>
     <string name="qr_option_legacy_scheme">Utiliser le schéma sesame://</string>
@@ -96,7 +100,7 @@ Assurez-vous que l\'entrée est bien enregistrée.</string>
     <string name="qr_options_header">Inclure dans le partage</string>
     <string name="qr_share">Partager via Messages, e-mail ou plus…</string>
     <string name="qr_share_footer">Le lien partagé peut être ouvert dans Sesame, Sesame Lite ou dans n\'importe quel navigateur web.</string>
-    <string name="qr_title">Partager l\'entrée</string>
+    <string name="qr_title">Partager la fiche</string>
     <string name="qr_warning">Ce QR code contient tous les champs partagés en texte brut. Ne le partagez qu\'avec des personnes de confiance.</string>
     <string name="qr_warning_legacy_scheme">Les destinataires sans Sesame installé ne pourront pas ouvrir ce lien.</string>
     <string name="radius_footer">Distance à partir de laquelle vous recevrez la notification. %1$s est recommandé pour la plupart des bâtiments.</string>
@@ -115,7 +119,7 @@ Assurez-vous que l\'entrée est bien enregistrée.</string>
     <string name="notification_code_key_unavailable">Clé non disponible</string>
     <string name="notification_code_unknown_version">Mise à jour requise</string>
     <string name="import_future_version_title">Mise à jour requise</string>
-    <string name="import_future_version_message">Cette entrée a été créée avec une version plus récente de Sesame. Veuillez mettre à jour l\'application.</string>
+    <string name="import_future_version_message">Cette fiche a été créée avec une version plus récente de Sesame. Veuillez mettre à jour l\'application.</string>
     <string name="import_malformed_title">Lien invalide</string>
     <string name="import_malformed_message">Ce lien ne semble pas être un lien de partage Sesame valide.</string>
     <string name="clipboard_import">Coller depuis le presse-papiers</string>
@@ -124,27 +128,27 @@ Assurez-vous que l\'entrée est bien enregistrée.</string>
     <string name="detail_no_code">Pas de code</string>
     <string name="detail_silenced">Silencieux</string>
     <string name="detail_active">Actif</string>
-    <string name="import_title">Importer une entrée</string>
+    <string name="import_title">Importer une fiche</string>
     <string name="key_recovery_title">Récupération de clé</string>
     <string name="key_recovery_explanation_title">Clé de chiffrement indisponible</string>
-    <string name="key_recovery_explanation_body">Vos entrées chiffrées ne peuvent pas être déchiffrées car la clé de chiffrement est manquante. Cela peut arriver si l\'application a été réinstallée. Vous pouvez réinitialiser toutes les données pour repartir à zéro.</string>
+    <string name="key_recovery_explanation_body">Vos fiches chiffrées ne peuvent pas être déchiffrées car la clé de chiffrement est manquante. Cela peut arriver si l\'application a été réinstallée. Vous pouvez réinitialiser toutes les données pour repartir à zéro.</string>
     <string name="key_recovery_reset">Réinitialiser toutes les données</string>
-    <string name="key_recovery_reset_footer">Cela supprime définitivement toutes les entrées et la clé de chiffrement. Il n\'y a pas de retour en arrière.</string>
+    <string name="key_recovery_reset_footer">Cela supprime définitivement toutes les fiches et la clé de chiffrement. Il n\'y a pas de retour en arrière.</string>
     <string name="key_recovery_settings_footer">Consultez les réglages de l\'application pour gérer le stockage et les autorisations.</string>
     <string name="key_recovery_open_settings">Ouvrir les réglages</string>
     <string name="key_recovery_reset_confirm_title">Réinitialiser toutes les données ?</string>
-    <string name="key_recovery_reset_confirm_message">Cela supprimera définitivement toutes les entrées et la clé de chiffrement. Cette action est irréversible.</string>
+    <string name="key_recovery_reset_confirm_message">Cela supprimera définitivement toutes les fiches et la clé de chiffrement. Cette action est irréversible.</string>
     <string name="key_recovery_reset_confirm_action">Tout supprimer</string>
     <string name="key_unavailable_detail">Clé de chiffrement indisponible</string>
-    <string name="key_unavailable_banner">Clé de chiffrement indisponible — certaines entrées ne peuvent pas être déchiffrées.</string>
+    <string name="key_unavailable_banner">Clé de chiffrement indisponible — certaines fiches ne peuvent pas être déchiffrées.</string>
     <string name="key_unavailable_action">Gérer</string>
     <string name="error_key_unavailable_title">Clé indisponible</string>
-    <string name="error_key_unavailable_message">La clé de chiffrement n\'est pas disponible. Vos entrées ne peuvent pas être enregistrées pour le moment.</string>
-    <string name="clipboard_overwrite_title">Remplacer l\'entrée existante ?</string>
+    <string name="error_key_unavailable_message">La clé de chiffrement n\'est pas disponible. Vos fiches ne peuvent pas être enregistrées pour le moment.</string>
+    <string name="clipboard_overwrite_title">Remplacer la fiche existante ?</string>
     <string name="clipboard_overwrite_message">Le presse-papiers contient un lien Sesame. L\'importer remplacera le contenu actuel du formulaire.</string>
     <string name="clipboard_overwrite_confirm">Remplacer</string>
     <string name="clipboard_error_title">Lien invalide</string>
     <string name="clipboard_error_message">Le presse-papiers ne contient pas de lien Sesame valide.</string>
-    <string name="delete_confirm_title">Supprimer l\'entrée</string>
-    <string name="delete_confirm_message">Cette entrée sera supprimée définitivement.</string>
+    <string name="delete_confirm_title">Supprimer la fiche</string>
+    <string name="delete_confirm_message">Cette fiche sera supprimée définitivement.</string>
 </resources>

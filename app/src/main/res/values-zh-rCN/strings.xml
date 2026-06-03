@@ -33,6 +33,10 @@
     <string name="address_warning_message">此条目没有已解析的位置。在您编辑并查找有效地址之前，地理围栏将无法工作。</string>
     <string name="address_warning_save_anyway">仍然保存</string>
     <string name="address_warning_title">未找到地址</string>
+    <string name="duplicate_warning_title">可能重复</string>
+    <string name="duplicate_warning_message">已存在具有相同标签和地址的条目。您可以用此条目替换它、另存为独立条目，或返回继续编辑。</string>
+    <string name="duplicate_replace">替换现有</string>
+    <string name="duplicate_create_anyway">仍然创建</string>
     <string name="cancel">取消</string>
     <string name="clipboard">剪贴板</string>
     <string name="code_footer">此位置的 PIN 或门禁代码。</string>

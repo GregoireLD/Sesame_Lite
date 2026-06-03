@@ -33,6 +33,10 @@
     <string name="address_warning_message">このエントリには解決済みの位置情報がありません。編集して有効な住所を検索するまでジオフェンシングは機能しません。</string>
     <string name="address_warning_save_anyway">このまま保存</string>
     <string name="address_warning_title">住所が見つかりません</string>
+    <string name="duplicate_warning_title">重複の可能性</string>
+    <string name="duplicate_warning_message">同じラベルとアドレスを持つエントリがすでに存在します。このエントリで置き換えるか、別のエントリとして保存するか、戻って編集を続けることができます。</string>
+    <string name="duplicate_replace">既存を置き換える</string>
+    <string name="duplicate_create_anyway">このまま作成</string>
     <string name="cancel">キャンセル</string>
     <string name="clipboard">クリップボード</string>
     <string name="code_footer">この場所のPINまたはアクセスコード。</string>

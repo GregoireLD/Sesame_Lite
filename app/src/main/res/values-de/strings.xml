@@ -33,6 +33,10 @@
     <string name="address_warning_message">Dieser Eintrag hat keinen aufgelösten Standort. Geofencing funktioniert erst, wenn du ihn bearbeitest und eine gültige Adresse auflöst.</string>
     <string name="address_warning_save_anyway">Trotzdem speichern</string>
     <string name="address_warning_title">Adresse nicht gefunden</string>
+    <string name="duplicate_warning_title">Mögliches Duplikat</string>
+    <string name="duplicate_warning_message">Ein Eintrag mit demselben Label und derselben Adresse existiert bereits. Du kannst ihn damit ersetzen, als separaten Eintrag speichern oder zurückgehen, um weiter zu bearbeiten.</string>
+    <string name="duplicate_replace">Vorhandenen ersetzen</string>
+    <string name="duplicate_create_anyway">Trotzdem erstellen</string>
     <string name="cancel">Abbrechen</string>
     <string name="clipboard">Zwischenablage</string>
     <string name="code_footer">Die PIN oder der Zugangscode für diesen Ort.</string>

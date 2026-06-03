@@ -33,6 +33,10 @@
     <string name="address_warning_message">Esta entrada no tiene ubicación resuelta. El geofencing no funcionará hasta que la edites y busques una dirección válida.</string>
     <string name="address_warning_save_anyway">Guardar de todas formas</string>
     <string name="address_warning_title">Dirección no encontrada</string>
+    <string name="duplicate_warning_title">Posible duplicado</string>
+    <string name="duplicate_warning_message">Ya existe una entrada con el mismo nombre y dirección. Puedes reemplazarla con esta, guardarla como entrada separada o volver para seguir editando.</string>
+    <string name="duplicate_replace">Reemplazar existente</string>
+    <string name="duplicate_create_anyway">Crear de todas formas</string>
     <string name="cancel">Cancelar</string>
     <string name="clipboard">Portapapeles</string>
     <string name="code_footer">El PIN o código de acceso para este lugar.</string>
