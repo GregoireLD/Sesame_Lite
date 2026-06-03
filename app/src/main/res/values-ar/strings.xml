@@ -28,7 +28,7 @@
     <string name="address_found">تم العثور على العنوان</string>
     <string name="address_header">العنوان</string>
     <string name="address_look_up">البحث عن العنوان</string>
-    <string name="address_looking_up">جارٍ البحث عن العنوان...</string>
+    <string name="address_looking_up">جارٍ البحث عن العنوان…</string>
     <string name="address_placeholder">مثال: 12 شارع ريفولي، باريس</string>
     <string name="address_warning_message">هذا الإدخال ليس له موقع محلول. لن يعمل السياج الجغرافي حتى تقوم بتعديله والبحث عن عنوان صالح.</string>
     <string name="address_warning_save_anyway">حفظ على أي حال</string>

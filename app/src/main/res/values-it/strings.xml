@@ -28,7 +28,7 @@
     <string name="address_found">Indirizzo trovato</string>
     <string name="address_header">Indirizzo</string>
     <string name="address_look_up">Cerca indirizzo</string>
-    <string name="address_looking_up">Ricerca indirizzo...</string>
+    <string name="address_looking_up">Ricerca indirizzo…</string>
     <string name="address_placeholder">es. Via Roma 1, Milano</string>
     <string name="address_warning_message">Questa voce non ha una posizione risolta. Il geofencing non funzionerà finché non la modifichi e cerchi un indirizzo valido.</string>
     <string name="address_warning_save_anyway">Salva comunque</string>

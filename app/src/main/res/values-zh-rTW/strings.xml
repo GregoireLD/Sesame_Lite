@@ -28,7 +28,7 @@
     <string name="address_found">已找到地址</string>
     <string name="address_header">地址</string>
     <string name="address_look_up">查找地址</string>
-    <string name="address_looking_up">正在查找地址...</string>
+    <string name="address_looking_up">正在查找地址…</string>
     <string name="address_placeholder">例如：台北市中正區重慶南路一段122號</string>
     <string name="address_warning_message">此條目沒有已解析的位置。在您編輯並查找有效地址之前，地理圍欄將無法工作。</string>
     <string name="address_warning_save_anyway">仍然儲存</string>

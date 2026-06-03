@@ -116,7 +116,7 @@ fun DetailScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                if (showCode) plainCode else "•".repeat(plainCode.length),
+                                if (showCode) plainCode else "••••••",
                                 fontFamily = FontFamily.Monospace,
                                 fontWeight = FontWeight.Medium,
                                 modifier = Modifier.weight(1f)

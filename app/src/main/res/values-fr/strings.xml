@@ -28,7 +28,7 @@
     <string name="address_found">Adresse trouvée</string>
     <string name="address_header">Adresse</string>
     <string name="address_look_up">Rechercher l\'adresse</string>
-    <string name="address_looking_up">Recherche en cours...</string>
+    <string name="address_looking_up">Recherche en cours…</string>
     <string name="address_placeholder">ex. 12 Rue de Rivoli, Paris</string>
     <string name="address_warning_message">Cette entrée n\'a pas de localisation résolue. Le géofencing ne fonctionnera pas jusqu\'à ce que vous la modifiiez et résolviez une adresse valide.</string>
     <string name="address_warning_save_anyway">Enregistrer quand même</string>
@@ -53,7 +53,7 @@
     <string name="label_footer">Un nom pour identifier cet emplacement.</string>
     <string name="label_header">Nom</string>
     <string name="label_placeholder">ex. Immeuble de bureau</string>
-    <string name="location_details_footer">Indications une fois à l\'intérieur. Apparaîtra dans les notifications.</string>
+    <string name="location_details_footer">Indications une fois à l\'intérieur. Affichés dans les notifications.</string>
     <string name="location_details_header">Détails de l\'emplacement</string>
     <string name="location_details_placeholder">ex. 3ème étage, couloir gauche, porte verte</string>
     <string name="onboarding_howitworks_feature1_subtitle">Ajoutez n\'importe quelle adresse avec son code d\'accès et des notes.</string>

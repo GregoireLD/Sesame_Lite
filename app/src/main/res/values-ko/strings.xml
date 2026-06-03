@@ -28,7 +28,7 @@
     <string name="address_found">주소를 찾았습니다</string>
     <string name="address_header">주소</string>
     <string name="address_look_up">주소 검색</string>
-    <string name="address_looking_up">주소 검색 중...</string>
+    <string name="address_looking_up">주소 검색 중…</string>
     <string name="address_placeholder">예: 서울특별시 중구 세종대로 110</string>
     <string name="address_warning_message">이 항목에는 확인된 위치가 없습니다. 편집하여 유효한 주소를 찾을 때까지 지오펜싱이 작동하지 않습니다.</string>
     <string name="address_warning_save_anyway">그래도 저장</string>

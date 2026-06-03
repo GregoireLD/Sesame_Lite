@@ -1,7 +1,10 @@
 package com.duval.sesamelite.ui.addedit
 
+import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,6 +20,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -176,7 +180,7 @@ fun AddEditScreen(
                     onValueChange = vm::onCodeChange,
                     label = { Text(stringResource(R.string.code_placeholder)) },
                     visualTransformation = if (state.showCode) VisualTransformation.None else PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     trailingIcon = {
                         IconButton(onClick = vm::onShowCodeToggle) {
                             Icon(
@@ -216,11 +220,20 @@ fun AddEditScreen(
                             Spacer(Modifier.width(8.dp))
                             Text(stringResource(R.string.address_found), color = Color(0xFF34C759))
                             if (state.latitude != null && state.longitude != null) {
+                                val coords = "%.5f, %.5f".format(state.latitude, state.longitude)
                                 Spacer(Modifier.width(8.dp))
                                 Text(
-                                    "%.5f, %.5f".format(state.latitude, state.longitude),
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    coords,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .clickable {
+                                            val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                            cm.setPrimaryClip(ClipData.newPlainText("coordinates", coords))
+                                            Toast.makeText(context, "Coordinates copied", Toast.LENGTH_SHORT).show()
+                                        },
+                                    textAlign = TextAlign.End,
+                                    softWrap = true
                                 )
                             }
                         }
@@ -297,7 +310,7 @@ fun AddEditScreen(
             if (state.isEditing) {
                 TextButton(
                     onClick = vm::requestDelete,
-                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error),
+                    colors = ButtonDefaults.textButtonColors(contentColor = Color(0xFFFF3B30)),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Icon(Icons.Default.Delete, null)

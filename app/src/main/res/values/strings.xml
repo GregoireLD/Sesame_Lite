@@ -28,7 +28,7 @@
     <string name="address_found">Address found</string>
     <string name="address_header">Address</string>
     <string name="address_look_up">Look up address</string>
-    <string name="address_looking_up">Looking up address...</string>
+    <string name="address_looking_up">Looking up address…</string>
     <string name="address_placeholder">e.g. 12 Rue de Rivoli, Paris</string>
     <string name="address_warning_message">This entry has no resolved location. Geofencing won\'t work until you edit it and look up a valid address.</string>
     <string name="address_warning_save_anyway">Save anyway</string>

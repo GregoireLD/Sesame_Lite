@@ -28,7 +28,7 @@
     <string name="address_found">住所が見つかりました</string>
     <string name="address_header">住所</string>
     <string name="address_look_up">住所を検索</string>
-    <string name="address_looking_up">住所を検索中...</string>
+    <string name="address_looking_up">住所を検索中…</string>
     <string name="address_placeholder">例：東京都千代田区丸の内1丁目</string>
     <string name="address_warning_message">このエントリには解決済みの位置情報がありません。編集して有効な住所を検索するまでジオフェンシングは機能しません。</string>
     <string name="address_warning_save_anyway">このまま保存</string>

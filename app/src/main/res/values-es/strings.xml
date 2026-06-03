@@ -28,7 +28,7 @@
     <string name="address_found">Dirección encontrada</string>
     <string name="address_header">Dirección</string>
     <string name="address_look_up">Buscar dirección</string>
-    <string name="address_looking_up">Buscando dirección...</string>
+    <string name="address_looking_up">Buscando dirección…</string>
     <string name="address_placeholder">p. ej. Calle Mayor 1, Madrid</string>
     <string name="address_warning_message">Esta entrada no tiene ubicación resuelta. El geofencing no funcionará hasta que la edites y busques una dirección válida.</string>
     <string name="address_warning_save_anyway">Guardar de todas formas</string>

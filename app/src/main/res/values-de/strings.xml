@@ -28,7 +28,7 @@
     <string name="address_found">Adresse gefunden</string>
     <string name="address_header">Adresse</string>
     <string name="address_look_up">Adresse suchen</string>
-    <string name="address_looking_up">Adresse wird gesucht...</string>
+    <string name="address_looking_up">Adresse wird gesucht…</string>
     <string name="address_placeholder">z. B. Museumsinsel 1, Berlin</string>
     <string name="address_warning_message">Dieser Eintrag hat keinen aufgelösten Standort. Geofencing funktioniert erst, wenn du ihn bearbeitest und eine gültige Adresse auflöst.</string>
     <string name="address_warning_save_anyway">Trotzdem speichern</string>

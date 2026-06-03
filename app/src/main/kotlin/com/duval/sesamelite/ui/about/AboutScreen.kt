@@ -77,7 +77,7 @@ fun AboutScreen(
                     onResetAllData()
                     onDismiss()
                 }) {
-                    Text(stringResource(R.string.key_recovery_reset_confirm_action), color = MaterialTheme.colorScheme.error)
+                    Text(stringResource(R.string.key_recovery_reset_confirm_action), color = Color(0xFFFF3B30))
                 }
             },
             dismissButton = {
@@ -250,9 +250,9 @@ fun AboutScreen(
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(Icons.Default.DeleteForever, null, tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(20.dp))
+                        Icon(Icons.Default.Warning, null, tint = Color(0xFFFF3B30), modifier = Modifier.size(20.dp))
                         val holdLabel = countdown?.let { "$it" } ?: stringResource(R.string.key_recovery_reset)
-                        Text(holdLabel, color = MaterialTheme.colorScheme.error, modifier = Modifier.animateContentSize())
+                        Text(holdLabel, color = Color(0xFFFF3B30), modifier = Modifier.animateContentSize())
                     }
                 }
             }
