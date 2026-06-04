@@ -224,7 +224,9 @@ class AddEditViewModel(app: Application) : AndroidViewModel(app) {
     // ---------------------------------------------------------------------------
 
     fun importFromClipboard(rawClipText: String?) {
-        val clipText = rawClipText?.trim()?.trimEnd('.')
+        val clipText = rawClipText
+            ?.replace(Regex("^(?:%20|\\s|\\.)+", RegexOption.IGNORE_CASE), "")
+            ?.replace(Regex("(?:%20|\\s|\\.)+$", RegexOption.IGNORE_CASE), "")
         if (clipText.isNullOrEmpty()) {
             _state.value = _state.value.copy(showClipboardError = true)
             return
