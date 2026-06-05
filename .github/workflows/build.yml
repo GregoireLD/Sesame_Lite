@@ -1,4 +1,4 @@
-name: Build APK
+name: Build AAB
 
 on:
   push:
@@ -24,19 +24,26 @@ jobs:
       - name: Install Android SDK 36
         run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-36" "build-tools;36.0.0"
 
+      - name: Decode keystore
+        run: echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > ${{ github.workspace }}/release.keystore
+
       - name: Grant gradlew permission
         run: chmod +x gradlew
 
-      - name: Build APK
-        run: ./gradlew assembleDebug
+      - name: Build release AAB
+        env:
+          SIGNING_STORE_FILE: ${{ github.workspace }}/release.keystore
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+        run: ./gradlew bundleRelease
 
-      - name: Rename APK
-        run: mv app/build/outputs/apk/debug/app-debug.apk Sesame_Lite.apk
+      - name: Rename AAB
+        run: mv app/build/outputs/bundle/release/app-release.aab Sesame_Lite.aab
 
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create ${{ github.ref_name }} \
-            Sesame_Lite.apk \
+            Sesame_Lite.aab \
             --title "Sesame Lite ${{ github.ref_name }}"
