@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Comment
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -302,7 +303,7 @@ private fun EntryRow(
                         } else {
                             if (entry.code != null) Icon(Icons.Default.Key, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.tertiary)
                             if (entry.locationDetails != null) Icon(Icons.Default.Info, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.tertiary)
-                            if (entry.comment != null) Icon(Icons.Default.Comment, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.tertiary)
+                            if (entry.comment != null) Icon(Icons.AutoMirrored.Filled.Comment, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.tertiary)
                             val hasCoords = entry.encryptedLatitude != null && entry.encryptedLongitude != null
                             if (entry.encryptedAddress != null) {
                                 Icon(

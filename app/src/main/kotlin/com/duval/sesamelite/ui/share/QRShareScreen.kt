@@ -8,6 +8,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Comment
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -115,7 +116,7 @@ fun QRShareScreen(
                             label = stringResource(R.string.qr_option_comment),
                             checked = state.includeComment,
                             onCheckedChange = vm::setIncludeComment,
-                            icon = Icons.Default.Comment,
+                            icon = Icons.AutoMirrored.Filled.Comment,
                             iconTint = MaterialTheme.colorScheme.tertiary
                         )
                         if (showHidden) {
