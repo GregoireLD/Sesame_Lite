@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.duval.sesamelite.R
+import com.duval.sesamelite.ui.theme.LocalSesameColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -87,7 +88,7 @@ fun AddEditScreen(
             onDismissRequest = vm::dismissDelete,
             title = { Text(stringResource(R.string.delete_confirm_title)) },
             text = { Text(stringResource(R.string.delete_confirm_message)) },
-            confirmButton = { TextButton(onClick = vm::confirmDelete) { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) } },
+            confirmButton = { TextButton(onClick = vm::confirmDelete) { Text(stringResource(R.string.action_delete), color = LocalSesameColors.current.dangerous) } },
             dismissButton = { TextButton(onClick = vm::dismissDelete) { Text(stringResource(R.string.action_cancel)) } }
         )
     }

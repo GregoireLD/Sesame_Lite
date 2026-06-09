@@ -1,10 +1,18 @@
 package com.duval.sesamelite.ui.theme
 
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
+val SesameRed    = Color(0xFFFF3B30)
 val SesameOrange = Color(0xFFFF9500)
-val SesameGreen = Color(0xFF34C759)
+val SesameGreen  = Color(0xFF34C759)
 val SesamePurple = Color(0xFF9B59B6)
+
+data class SesameColors(
+    val dangerous: Color,
+)
+
+val LocalSesameColors = staticCompositionLocalOf { SesameColors(dangerous = SesameRed) }
 
 // WCAG AA-compliant adaptive blues matching iOS Colors.swift
 val ListPrimaryLight   = Color(0xFF0040C0)  // 7.5:1 on #F2F2F7
