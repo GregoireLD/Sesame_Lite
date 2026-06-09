@@ -92,7 +92,7 @@ object GeofenceManager {
 
         try {
             val request = GeofencingRequest.Builder()
-                .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+                .setInitialTrigger(0)
                 .addGeofences(geofences)
                 .build()
             client.addGeofences(request, pi).await()
