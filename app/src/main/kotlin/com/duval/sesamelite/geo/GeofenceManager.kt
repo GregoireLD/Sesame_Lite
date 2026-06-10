@@ -24,9 +24,10 @@ import kotlinx.coroutines.tasks.await
  * Android geofencing (up to 100 registered geofences via Google Play Services).
  *
  * Simple mode (≤ 100 non-silenced entries with valid coords): register them all.
- * Dynamic mode (> 100): register the nearest 100 by near-edge distance
+ * Dynamic mode (> 90): register the nearest 90 by near-edge distance
  *   max(0, distanceToCentre − radius), plus one safety geofence that triggers
- *   a re-evaluation when the user travels beyond the covered area.
+ *   a re-evaluation when the user travels beyond the covered area — 91
+ *   total, below the platform limit.
  *
  * Geofences are wiped on reboot — BootReceiver calls reRegisterAll().
  * Silenced entries are excluded entirely (no geofence, no muted notification).
@@ -34,8 +35,18 @@ import kotlinx.coroutines.tasks.await
 object GeofenceManager {
 
     const val SAFETY_GEOFENCE_ID = "com.duval.sesamelite.safety"
-    private const val ACTIVE_SET_SIZE = 100
-    private const val DYNAMIC_THRESHOLD = 100
+    /** Android's hard limit: 100 geofences per app. added some security margin */
+    private const val MAX_GEOFENCES = 91
+
+    /**
+     * Dynamic mode adds one safety geofence on top of the active set, so the
+     * set must leave a slot free. 100 entries + 1 safety fence = 101 would make
+     * addGeofences() throw GEOFENCE_TOO_MANY_GEOFENCES — and since removeAll()
+     * has already run at that point, the user would silently end up with zero
+     * geofences. (The iOS version leaves the same headroom: 15 + 1 ≤ 20.)
+     */
+    private const val ACTIVE_SET_SIZE = MAX_GEOFENCES - 1
+    private const val DYNAMIC_THRESHOLD = MAX_GEOFENCES
 
     fun reRegisterAll(context: Context) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -96,7 +107,13 @@ object GeofenceManager {
                 .addGeofences(geofences)
                 .build()
             client.addGeofences(request, pi).await()
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            // A failure here means NO geofences are registered (removeAll has
+            // already run) — arrival alerts are dead. Never swallow it silently.
+            android.util.Log.w(
+                "GeofenceManager",
+                "addGeofences failed for ${geofences.size} fence(s)", e
+            )
         }
     }
 

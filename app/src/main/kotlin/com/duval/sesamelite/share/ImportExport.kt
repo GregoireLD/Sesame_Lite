@@ -10,6 +10,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.QRCodeWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
+import java.util.Locale
 import java.util.zip.CRC32
 
 /**
@@ -19,7 +20,9 @@ import java.util.zip.CRC32
  *   https://sesame-app.com/share#<base64url(queryString&crc32=<8hex>)>
  *   sesame://import#<base64url(queryString&crc32=<8hex>)>
  *
- * Spaces encoded as %20 (NOT +). CRC32 is java.util.zip.CRC32.
+ * Spaces encoded as %20 (NOT +); a literal '+' on the wire is a plus sign,
+ * never a space (iOS URLComponents leaves '+' unescaped). CRC32 is
+ * java.util.zip.CRC32.
  * Base64URL: standard Base64 with +→-, /→_, = stripped.
  */
 object ImportExport {
@@ -54,8 +57,8 @@ object ImportExport {
             val lat = repo.decryptedLatitude(entry)
             val lon = repo.decryptedLongitude(entry)
             if (lat != null && lon != null) {
-                items += "lat" to "%.5f".format(lat)
-                items += "lon" to "%.5f".format(lon)
+                items += "lat" to formatCoordinate(lat)
+                items += "lon" to formatCoordinate(lon)
             }
         }
 
@@ -203,6 +206,19 @@ object ImportExport {
     }
 
     // ---------------------------------------------------------------------------
+    // Coordinate formatting — locale-independent (wire format requires '.')
+    // ---------------------------------------------------------------------------
+
+    /**
+     * Formats a coordinate for the share payload. Must be locale-independent:
+     * the default locale produces a decimal comma on fr/de/… devices
+     * ("48,85837"), which the Double parsers on both platforms reject — the
+     * coordinates would be silently dropped on import (the CRC still
+     * validates, so no error ever surfaces).
+     */
+    fun formatCoordinate(value: Double): String = "%.5f".format(Locale.US, value)
+
+    // ---------------------------------------------------------------------------
     // CRC32 (ISO-HDLC — exactly java.util.zip.CRC32)
     // ---------------------------------------------------------------------------
 
@@ -243,9 +259,13 @@ object ImportExport {
     }
 
     fun percentDecode(value: String): String {
-        // Be liberal: accept both %20 and + as spaces
+        // The wire format is RFC 3986 percent-encoding: '+' is a literal plus.
+        // iOS URLComponents leaves '+' unescaped on export, while URLDecoder
+        // follows HTML-form rules and would turn it into a space — protect it
+        // first. No compliant producer ever encodes a space as '+' (both
+        // platforms emit %20), so nothing is lost by being strict here.
         return try {
-            java.net.URLDecoder.decode(value, "UTF-8")
+            java.net.URLDecoder.decode(value.replace("+", "%2B"), "UTF-8")
         } catch (_: Exception) {
             value
         }

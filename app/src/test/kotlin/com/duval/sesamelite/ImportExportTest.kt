@@ -4,6 +4,7 @@ import com.duval.sesamelite.share.ImportExport
 import com.duval.sesamelite.share.ImportExport.ImportResult
 import org.junit.Assert.*
 import org.junit.Test
+import java.util.Locale
 import java.util.zip.CRC32
 
 /**
@@ -230,5 +231,64 @@ class ImportExportTest {
         val imp = (result as ImportResult.Success).import
         assertEquals(label, imp.label)
         assertEquals(code, imp.code)
+    }
+
+    // ---------------------------------------------------------------------------
+    // Locale independence: coordinates must use '.' whatever the device locale
+    // ---------------------------------------------------------------------------
+
+    @Test
+    fun `formatCoordinate uses dot decimal separator under comma-decimal locale`() {
+        val saved = Locale.getDefault()
+        try {
+            Locale.setDefault(Locale.FRANCE)
+            assertEquals("48.85837", ImportExport.formatCoordinate(48.85837))
+            assertEquals("2.29448", ImportExport.formatCoordinate(2.29448))
+        } finally {
+            Locale.setDefault(saved)
+        }
+    }
+
+    @Test
+    fun `coordinates formatted under French locale survive a full round-trip`() {
+        val saved = Locale.getDefault()
+        try {
+            Locale.setDefault(Locale.FRANCE)
+            val query = "v=1&label=Bureau" +
+                "&lat=${ImportExport.formatCoordinate(48.85837)}" +
+                "&lon=${ImportExport.formatCoordinate(2.29448)}"
+            val crc = ImportExport.crc32Hex(query)
+            val fragment = ImportExport.base64UrlEncode("$query&crc32=$crc")
+
+            val result = ImportExport.parsePayload(fragment, null)
+            assertTrue(result is ImportResult.Success)
+            val imp = (result as ImportResult.Success).import
+            assertEquals(48.85837, imp.latitude!!, 0.00001)
+            assertEquals(2.29448, imp.longitude!!, 0.00001)
+        } finally {
+            Locale.setDefault(saved)
+        }
+    }
+
+    // ---------------------------------------------------------------------------
+    // Literal '+' must survive decoding (iOS leaves '+' unescaped on the wire)
+    // ---------------------------------------------------------------------------
+
+    @Test
+    fun `literal plus in iOS-style payload is not decoded as a space`() {
+        // What iOS URLComponents emits for code "12+34": '+' stays literal.
+        val query = "v=1&label=Garage&code=12+34"
+        val crc = ImportExport.crc32Hex(query)
+        val fragment = ImportExport.base64UrlEncode("$query&crc32=$crc")
+
+        val result = ImportExport.parsePayload(fragment, null)
+        assertTrue(result is ImportResult.Success)
+        assertEquals("12+34", (result as ImportResult.Success).import.code)
+    }
+
+    @Test
+    fun `percent-encoded plus still decodes to a plus`() {
+        // Android's own exports (and patched iOS) emit %2B for a plus sign.
+        assertEquals("12+34", ImportExport.percentDecode("12%2B34"))
     }
 }
