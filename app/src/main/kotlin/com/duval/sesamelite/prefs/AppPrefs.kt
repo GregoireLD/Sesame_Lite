@@ -8,7 +8,7 @@ import androidx.compose.runtime.mutableStateOf
  * App-wide preferences backed by SharedPreferences and exposed as Compose state,
  * mirroring iOS @AppStorage semantics.
  *
- * Call init() once from SesameApplication.onCreate().
+ * Call init() once from SesameLiteApplication.onCreate().
  */
 object AppPrefs {
 

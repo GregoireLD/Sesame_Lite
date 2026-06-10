@@ -18,8 +18,10 @@
     </queries>
 
     <application
-        android:name=".SesameApplication"
-        android:allowBackup="true"
+        android:name=".SesameLiteApplication"
+        android:allowBackup="false"
+        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"

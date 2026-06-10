@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude all credential-protected app-private data. -->
+    <exclude domain="root" path="." />
+
+    <!-- Exclude all device-protected app-private data, if any. -->
+    <exclude domain="device_root" path="." />
+</full-backup-content>

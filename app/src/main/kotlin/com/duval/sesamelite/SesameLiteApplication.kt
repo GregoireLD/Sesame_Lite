@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SesameApplication : Application() {
+class SesameLiteApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -18,9 +18,9 @@ class SesameApplication : Application() {
         NotificationHelper.createChannel(this)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val dao = AppDatabase.get(this@SesameApplication).accessCodeDao()
+            val dao = AppDatabase.get(this@SesameLiteApplication).accessCodeDao()
             MigrationManager.migrateIfNeeded(dao)
-            GeofenceManager.registerAll(this@SesameApplication, dao.getAll(), currentLocation = null)
+            GeofenceManager.registerAll(this@SesameLiteApplication, dao.getAll(), currentLocation = null)
         }
     }
 }
