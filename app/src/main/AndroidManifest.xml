@@ -45,6 +45,15 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="sesame" android:host="import" />
             </intent-filter>
+            <!-- Verified App Link: https share URLs open directly in the app -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                      android:host="sesame-app.com"
+                      android:pathPrefix="/share" />
+            </intent-filter>
         </activity>
 
         <!-- Geofence BroadcastReceiver -->

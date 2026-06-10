@@ -1,4 +1,4 @@
--keep class com.duval.sesamelite.data.** { *; }
+-keep class com.paris.duval.sesamelite.data.** { *; }
 -keep class com.google.zxing.** { *; }
 -keepattributes Signature
 -keepattributes *Annotation*

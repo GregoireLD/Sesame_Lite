@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    namespace = "com.duval.sesamelite"
+    namespace = "com.paris.duval.sesamelite"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.duval.sesamelite"
+        applicationId = "com.paris.duval.sesamelite"
         minSdk = 26
         targetSdk = 36
-        versionCode = 25
-        versionName = "1.6.4"
+        versionCode = 26
+        versionName = "1.7.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
