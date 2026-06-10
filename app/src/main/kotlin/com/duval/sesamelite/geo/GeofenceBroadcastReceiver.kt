@@ -21,11 +21,12 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
                 }
             }
         } else if (event.geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-            event.triggeringGeofences?.forEach { geofence ->
-                if (geofence.requestId == GeofenceManager.SAFETY_GEOFENCE_ID) {
-                    // Safety fence exit: re-register geofences with updated active set
-                    GeofenceManager.reRegisterAll(context)
-                }
+            val safetyExited = event.triggeringGeofences?.any {
+                it.requestId == GeofenceManager.SAFETY_GEOFENCE_ID
+            } ?: false
+            if (safetyExited) {
+                val pending = goAsync()
+                GeofenceManager.reRegisterAll(context) { pending.finish() }
             }
         }
     }

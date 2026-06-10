@@ -11,6 +11,8 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.duval.sesamelite.crypto.CryptoManager
 import com.duval.sesamelite.crypto.DecryptionResult
 import com.duval.sesamelite.data.db.AppDatabase
@@ -19,6 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Android geofencing (up to 100 registered geofences via Google Play Services).
@@ -39,7 +42,7 @@ object GeofenceManager {
     private const val MAX_GEOFENCES = 100
 
     /** Safety margin below the platform cap (room for the safety fence + slack). */
-    private const val GEOFENCE_BUDGET = 91
+    private const val GEOFENCE_MAX_BUDGET = MAX_GEOFENCES - 9 // 100 - 9 = 91
 
     /**
     * Dynamic mode adds one safety geofence on top of the active set, so the set
@@ -48,13 +51,21 @@ object GeofenceManager {
     * the re-add, an overflow would otherwise leave the user with zero geofences.
     * (The iOS version leaves the same headroom: 15 + 1 ≤ 20.)
     */
-    private const val ACTIVE_SET_SIZE = GEOFENCE_BUDGET - 1   // 90 + 1 safety = 91
-    private const val DYNAMIC_THRESHOLD = GEOFENCE_BUDGET
+    private const val ACTIVE_SET_SIZE = GEOFENCE_MAX_BUDGET - 1   // 90 + 1 safety = 91
+    private const val DYNAMIC_THRESHOLD = ACTIVE_SET_SIZE
 
-    fun reRegisterAll(context: Context) {
+    fun reRegisterAll(context: Context, onComplete: (() -> Unit)? = null) {
         CoroutineScope(Dispatchers.IO).launch {
-            val entries = AppDatabase.get(context).accessCodeDao().getAll()
-            registerAll(context, entries, currentLocation = null)
+            try {
+                val entries = AppDatabase.get(context).accessCodeDao().getAll()
+                val location =
+                    if (eligibleEntries(entries).size > DYNAMIC_THRESHOLD)
+                        getCurrentLocationOrNull(context)
+                    else null
+                registerAll(context, entries, currentLocation = location)
+            } finally {
+                onComplete?.invoke()
+            }
         }
     }
 
@@ -69,12 +80,7 @@ object GeofenceManager {
         val pi = buildPendingIntent(context)
 
         // Collect only non-silenced entries with valid (non-zero) coordinates
-        val eligible = entries.filter { entry ->
-            if (entry.isSilenced) return@filter false
-            val lat = decryptDouble(entry.encryptedLatitude) ?: return@filter false
-            val lon = decryptDouble(entry.encryptedLongitude) ?: return@filter false
-            lat != 0.0 || lon != 0.0
-        }
+        val eligible = eligibleEntries(entries)
 
         val toMonitor: List<AccessCode>
         val addSafety: Boolean
@@ -166,6 +172,33 @@ object GeofenceManager {
             .setExpirationDuration(Geofence.NEVER_EXPIRE)
             .setNotificationResponsiveness(0)
             .build()
+    }
+
+    private fun eligibleEntries(entries: List<AccessCode>): List<AccessCode> =
+        entries.filter { entry ->
+            if (entry.isSilenced) return@filter false
+            val lat = decryptDouble(entry.encryptedLatitude) ?: return@filter false
+            val lon = decryptDouble(entry.encryptedLongitude) ?: return@filter false
+            lat != 0.0 || lon != 0.0
+        }
+
+    private suspend fun getCurrentLocationOrNull(context: Context): Location? {
+        if (!hasBackgroundLocationPermission(context)) return null
+        val client = LocationServices.getFusedLocationProviderClient(context)
+        val cts = CancellationTokenSource()
+        return try {
+            withTimeoutOrNull(8_000L) {
+                client.getCurrentLocation(
+                    Priority.PRIORITY_BALANCED_POWER_ACCURACY,
+                    cts.token
+                ).await()
+            }
+        } catch (e: Exception) {
+            android.util.Log.w("GeofenceManager", "getCurrentLocation failed", e)
+            null
+        } finally {
+            cts.cancel()
+        }
     }
 
     private fun sortByNearEdge(

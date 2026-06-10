@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SesameLight"
+rootProject.name = "SesameLite"
 include(":app")
