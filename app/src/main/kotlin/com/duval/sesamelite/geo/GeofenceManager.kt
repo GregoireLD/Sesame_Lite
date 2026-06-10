@@ -23,7 +23,7 @@ import kotlinx.coroutines.tasks.await
 /**
  * Android geofencing (up to 100 registered geofences via Google Play Services).
  *
- * Simple mode (≤ 100 non-silenced entries with valid coords): register them all.
+ * Simple mode (≤ 90 non-silenced entries with valid coords): register them all.
  * Dynamic mode (> 90): register the nearest 90 by near-edge distance
  *   max(0, distanceToCentre − radius), plus one safety geofence that triggers
  *   a re-evaluation when the user travels beyond the covered area — 91
@@ -35,18 +35,21 @@ import kotlinx.coroutines.tasks.await
 object GeofenceManager {
 
     const val SAFETY_GEOFENCE_ID = "com.duval.sesamelite.safety"
-    /** Android's hard limit: 100 geofences per app. added some security margin */
-    private const val MAX_GEOFENCES = 91
+    /** Android's hard limit: 100 geofences per app. */
+    private const val MAX_GEOFENCES = 100
+
+    /** Safety margin below the platform cap (room for the safety fence + slack). */
+    private const val GEOFENCE_BUDGET = 91
 
     /**
-     * Dynamic mode adds one safety geofence on top of the active set, so the
-     * set must leave a slot free. 100 entries + 1 safety fence = 101 would make
-     * addGeofences() throw GEOFENCE_TOO_MANY_GEOFENCES — and since removeAll()
-     * has already run at that point, the user would silently end up with zero
-     * geofences. (The iOS version leaves the same headroom: 15 + 1 ≤ 20.)
-     */
-    private const val ACTIVE_SET_SIZE = MAX_GEOFENCES - 1
-    private const val DYNAMIC_THRESHOLD = MAX_GEOFENCES
+    * Dynamic mode adds one safety geofence on top of the active set, so the set
+    * must leave a slot free. Budgeting 91 (well under the 100 hard cap) avoids
+    * GEOFENCE_TOO_MANY_GEOFENCES — and since removeAll() has already run before
+    * the re-add, an overflow would otherwise leave the user with zero geofences.
+    * (The iOS version leaves the same headroom: 15 + 1 ≤ 20.)
+    */
+    private const val ACTIVE_SET_SIZE = GEOFENCE_BUDGET - 1   // 90 + 1 safety = 91
+    private const val DYNAMIC_THRESHOLD = GEOFENCE_BUDGET
 
     fun reRegisterAll(context: Context) {
         CoroutineScope(Dispatchers.IO).launch {
