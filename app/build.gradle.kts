@@ -13,8 +13,8 @@ android {
         applicationId = "com.paris.duval.sesamelite"
         minSdk = 26
         targetSdk = 36
-        versionCode = 28
-        versionName = "1.5.3"
+        versionCode = 29
+        versionName = "1.7.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
