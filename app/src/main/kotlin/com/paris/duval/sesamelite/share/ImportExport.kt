@@ -115,18 +115,22 @@ object ImportExport {
     /** Parses any Sesame share URL string. Works for both https:// and sesame:// forms. */
     fun parse(uriString: String): ImportResult {
         return try {
-            val uri = Uri.parse(uriString)
-            // Fragment first, then query string (legacy)
-            val fragment = uri.fragment
-            val query = uri.query
-            parsePayload(fragment, query)
+            parseUri(Uri.parse(uriString))
         } catch (_: Exception) {
             ImportResult.Malformed
         }
     }
 
     fun parseUri(uri: Uri): ImportResult {
-        return parsePayload(uri.fragment, uri.query)
+        val isSesameShaped = (uri.scheme == "sesame" && uri.host == "import") ||
+            (uri.scheme == "https" && uri.host == "sesame-app.com" &&
+                uri.path?.startsWith("/share") == true)
+        val fragment = uri.fragment
+        val query = uri.query
+        if (isSesameShaped && fragment.isNullOrEmpty() && query.isNullOrEmpty()) {
+            return ImportResult.EmptyEntry
+        }
+        return parsePayload(fragment, query)
     }
 
     // ---------------------------------------------------------------------------
@@ -203,6 +207,7 @@ object ImportExport {
         data class Success(val import: ParsedImport) : ImportResult()
         data object Malformed : ImportResult()
         data object FutureVersion : ImportResult()
+        data object EmptyEntry : ImportResult()
     }
 
     // ---------------------------------------------------------------------------

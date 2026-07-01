@@ -122,6 +122,8 @@ Assurez-vous que la fiche est bien enregistrée.</string>
     <string name="import_future_version_message">Cette fiche a été créée avec une version plus récente de Sesame. Veuillez mettre à jour l\'application.</string>
     <string name="import_malformed_title">Lien invalide</string>
     <string name="import_malformed_message">Ce lien ne semble pas être un lien de partage Sesame valide.</string>
+    <string name="import_empty_title">Lien incomplet</string>
+    <string name="import_empty_message">Les données de la fiche sont manquantes, probablement supprimées par l\'application de messagerie. Demandez à l\'expéditeur de partager le lien à nouveau ou de vous envoyer le code QR directement.</string>
     <string name="clipboard_import">Coller depuis le presse-papiers</string>
     <string name="action_done">Valider</string>
     <string name="sort_toggle">Ordre de tri</string>

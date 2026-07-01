@@ -122,6 +122,8 @@ Assicurati che la voce sia salvata completamente.</string>
     <string name="import_future_version_message">Questa voce è stata creata con una versione più recente di Sesame. Aggiorna l\'app per importarla.</string>
     <string name="import_malformed_title">Link non valido</string>
     <string name="import_malformed_message">Questo link non sembra essere un link di condivisione Sesame valido.</string>
+    <string name="import_empty_title">Link incompleto</string>
+    <string name="import_empty_message">I dati della voce sono mancanti, probabilmente rimossi dall\'app di messaggistica. Chiedi al mittente di condividere di nuovo il link o di inviarti il codice QR direttamente.</string>
     <string name="clipboard_import">Incolla dagli appunti</string>
     <string name="action_done">Fine</string>
     <string name="sort_toggle">Ordinamento</string>

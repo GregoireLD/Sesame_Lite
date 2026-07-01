@@ -125,6 +125,8 @@ Make sure the entry is fully saved.</string>
     <string name="import_future_version_message">This entry was created with a newer version of Sesame. Please update the app to import it.</string>
     <string name="import_malformed_title">Invalid Link</string>
     <string name="import_malformed_message">This link doesn\'t appear to be a valid Sesame share link.</string>
+    <string name="import_empty_title">Link Incomplete</string>
+    <string name="import_empty_message">The entry data is missing, likely stripped by the messaging app. Ask the sender to share the link again or scan the QR code directly.</string>
     <string name="key_recovery_title">Key Recovery</string>
     <string name="key_recovery_explanation_title">Encryption key unavailable</string>
     <string name="key_recovery_explanation_body">Your encrypted entries can\'t be decrypted because the encryption key is missing. This can happen if the app was reinstalled. You can reset all data to start fresh.</string>

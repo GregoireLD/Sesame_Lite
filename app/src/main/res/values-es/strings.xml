@@ -122,6 +122,8 @@ Asegúrate de que la entrada esté guardada por completo.</string>
     <string name="import_future_version_message">Esta entrada fue creada con una versión más reciente de Sesame. Actualiza la app para importarla.</string>
     <string name="import_malformed_title">Enlace inválido</string>
     <string name="import_malformed_message">Este enlace no parece ser un enlace de compartir de Sesame válido.</string>
+    <string name="import_empty_title">Enlace incompleto</string>
+    <string name="import_empty_message">Los datos de la entrada no se recibieron, probablemente fueron eliminados por la aplicación de mensajería. Pide al remitente que comparta el enlace de nuevo o que te envíe el código QR directamente.</string>
     <string name="clipboard_import">Pegar desde el portapapeles</string>
     <string name="action_done">Listo</string>
     <string name="sort_toggle">Orden de clasificación</string>

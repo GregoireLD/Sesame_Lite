@@ -122,6 +122,8 @@
     <string name="import_future_version_message">تم إنشاء هذا الإدخال بإصدار أحدث من Sesame. يرجى تحديث التطبيق لاستيراده.</string>
     <string name="import_malformed_title">رابط غير صالح</string>
     <string name="import_malformed_message">لا يبدو أن هذا الرابط هو رابط مشاركة Sesame صالح.</string>
+    <string name="import_empty_title">رابط غير مكتمل</string>
+    <string name="import_empty_message">بيانات الإدخال مفقودة، على الأرجح تمت إزالتها بواسطة تطبيق المراسلة. اطلب من المُرسِل مشاركة الرابط مجدداً أو إرسال رمز QR مباشرةً.</string>
     <string name="clipboard_import">لصق من الحافظة</string>
     <string name="action_done">تم</string>
     <string name="sort_toggle">ترتيب الفرز</string>

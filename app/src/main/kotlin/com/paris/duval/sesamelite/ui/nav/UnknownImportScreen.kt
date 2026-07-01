@@ -13,9 +13,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.paris.duval.sesamelite.R
 
+enum class ImportErrorKind { MALFORMED, FUTURE_VERSION, EMPTY }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UnknownImportScreen(isFutureVersion: Boolean, onDismiss: () -> Unit) {
+fun UnknownImportScreen(kind: ImportErrorKind, onDismiss: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -35,20 +37,40 @@ fun UnknownImportScreen(isFutureVersion: Boolean, onDismiss: () -> Unit) {
             verticalArrangement = Arrangement.Center
         ) {
             Icon(
-                if (isFutureVersion) Icons.Default.ArrowUpward else Icons.Default.Warning,
+                when (kind) {
+                    ImportErrorKind.FUTURE_VERSION -> Icons.Default.ArrowUpward
+                    ImportErrorKind.EMPTY -> Icons.Default.LinkOff
+                    ImportErrorKind.MALFORMED -> Icons.Default.Warning
+                },
                 null,
                 modifier = Modifier.size(64.dp),
-                tint = if (isFutureVersion) MaterialTheme.colorScheme.primary else Color(0xFFFF9500)
+                tint = when (kind) {
+                    ImportErrorKind.FUTURE_VERSION -> MaterialTheme.colorScheme.primary
+                    ImportErrorKind.EMPTY -> MaterialTheme.colorScheme.secondary
+                    ImportErrorKind.MALFORMED -> Color(0xFFFF9500)
+                }
             )
             Spacer(Modifier.height(24.dp))
             Text(
-                stringResource(if (isFutureVersion) R.string.import_future_version_title else R.string.import_malformed_title),
+                stringResource(
+                    when (kind) {
+                        ImportErrorKind.FUTURE_VERSION -> R.string.import_future_version_title
+                        ImportErrorKind.EMPTY -> R.string.import_empty_title
+                        ImportErrorKind.MALFORMED -> R.string.import_malformed_title
+                    }
+                ),
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Center
             )
             Spacer(Modifier.height(12.dp))
             Text(
-                stringResource(if (isFutureVersion) R.string.import_future_version_message else R.string.import_malformed_message),
+                stringResource(
+                    when (kind) {
+                        ImportErrorKind.FUTURE_VERSION -> R.string.import_future_version_message
+                        ImportErrorKind.EMPTY -> R.string.import_empty_message
+                        ImportErrorKind.MALFORMED -> R.string.import_malformed_message
+                    }
+                ),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurfaceVariant

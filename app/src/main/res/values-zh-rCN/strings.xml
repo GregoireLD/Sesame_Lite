@@ -122,6 +122,8 @@
     <string name="import_future_version_message">此条目由更新版本的 Sesame 创建。请更新应用以导入。</string>
     <string name="import_malformed_title">无效链接</string>
     <string name="import_malformed_message">此链接似乎不是有效的 Sesame 分享链接。</string>
+    <string name="import_empty_title">链接不完整</string>
+    <string name="import_empty_message">条目数据丢失，可能已被即时通讯应用删除。请发送者重新分享链接或直接发送二维码。</string>
     <string name="clipboard_import">从剪贴板粘贴</string>
     <string name="action_done">完成</string>
     <string name="sort_toggle">排序方式</string>

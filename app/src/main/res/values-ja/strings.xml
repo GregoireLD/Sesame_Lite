@@ -122,6 +122,8 @@
     <string name="import_future_version_message">このエントリは新しいバージョンのSesameで作成されました。インポートするにはアプリを更新してください。</string>
     <string name="import_malformed_title">無効なリンク</string>
     <string name="import_malformed_message">このリンクは有効なSesame共有リンクではないようです。</string>
+    <string name="import_empty_title">リンクが不完全</string>
+    <string name="import_empty_message">エントリのデータが見つかりません。メッセージアプリによって削除された可能性があります。送信者にリンクを再度共有するか、QRコードを直接送ってもらってください。</string>
     <string name="clipboard_import">クリップボードから貼り付け</string>
     <string name="action_done">完了</string>
     <string name="sort_toggle">並び順</string>

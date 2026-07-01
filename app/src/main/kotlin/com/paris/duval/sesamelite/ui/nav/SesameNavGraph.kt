@@ -132,9 +132,11 @@ fun SesameNavGraph(
                     AddEditScreen(vm = vm, onDismiss = { navController.popBackStack() })
                 }
                 is ImportExport.ImportResult.FutureVersion ->
-                    UnknownImportScreen(isFutureVersion = true) { navController.popBackStack() }
+                    UnknownImportScreen(ImportErrorKind.FUTURE_VERSION) { navController.popBackStack() }
+                is ImportExport.ImportResult.EmptyEntry ->
+                    UnknownImportScreen(ImportErrorKind.EMPTY) { navController.popBackStack() }
                 else ->
-                    UnknownImportScreen(isFutureVersion = false) { navController.popBackStack() }
+                    UnknownImportScreen(ImportErrorKind.MALFORMED) { navController.popBackStack() }
             }
         }
     }

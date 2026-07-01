@@ -122,6 +122,8 @@ Stelle sicher, dass der Eintrag vollständig gespeichert ist.</string>
     <string name="import_future_version_message">Dieser Eintrag wurde mit einer neueren Version von Sesame erstellt. Bitte aktualisiere die App.</string>
     <string name="import_malformed_title">Ungültiger Link</string>
     <string name="import_malformed_message">Dieser Link ist kein gültiger Sesame-Teilen-Link.</string>
+    <string name="import_empty_title">Unvollständiger Link</string>
+    <string name="import_empty_message">Die Eintrags­daten fehlen, wahrscheinlich wurden sie von der Messaging-App entfernt. Bitte die sendende Person, den Link erneut zu teilen oder den QR-Code direkt zu senden.</string>
     <string name="clipboard_import">Aus Zwischenablage einfügen</string>
     <string name="action_done">Fertig</string>
     <string name="sort_toggle">Sortierung</string>

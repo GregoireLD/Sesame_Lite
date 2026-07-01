@@ -122,6 +122,8 @@
     <string name="import_future_version_message">이 항목은 더 최신 버전의 Sesame으로 만들어졌습니다. 가져오려면 앱을 업데이트하세요.</string>
     <string name="import_malformed_title">유효하지 않은 링크</string>
     <string name="import_malformed_message">이 링크는 유효한 Sesame 공유 링크가 아닌 것 같습니다.</string>
+    <string name="import_empty_title">링크가 불완전함</string>
+    <string name="import_empty_message">항목 데이터가 누락되었습니다. 메시징 앱에서 제거되었을 가능성이 있습니다. 보낸 사람에게 링크를 다시 공유하거나 QR 코드를 직접 보내달라고 요청하세요.</string>
     <string name="clipboard_import">클립보드에서 붙여넣기</string>
     <string name="action_done">완료</string>
     <string name="sort_toggle">정렬 순서</string>

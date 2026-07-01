@@ -73,6 +73,15 @@ fun AddEditScreen(
         )
     }
 
+    if (state.showClipboardEmptyError) {
+        AlertDialog(
+            onDismissRequest = vm::dismissClipboardEmptyError,
+            title = { Text(stringResource(R.string.import_empty_title)) },
+            text = { Text(stringResource(R.string.import_empty_message)) },
+            confirmButton = { TextButton(onClick = vm::dismissClipboardEmptyError) { Text(stringResource(R.string.action_ok)) } }
+        )
+    }
+
     if (state.showClipboardOverwrite) {
         AlertDialog(
             onDismissRequest = vm::dismissClipboardOverwrite,

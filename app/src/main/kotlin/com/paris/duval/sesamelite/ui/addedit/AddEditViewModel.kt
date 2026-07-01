@@ -42,6 +42,7 @@ data class AddEditUiState(
     val keyUnavailable: Boolean = false,
     val showUnresolvedWarning: Boolean = false,
     val showClipboardError: Boolean = false,
+    val showClipboardEmptyError: Boolean = false,
     val showClipboardOverwrite: Boolean = false,
     val pendingClipboardImport: ParsedImport? = null,
     val showDeleteConfirm: Boolean = false,
@@ -232,6 +233,10 @@ class AddEditViewModel(app: Application) : AndroidViewModel(app) {
             return
         }
         val result = ImportExport.parse(clipText)
+        if (result is ImportExport.ImportResult.EmptyEntry) {
+            _state.value = _state.value.copy(showClipboardEmptyError = true)
+            return
+        }
         if (result !is ImportExport.ImportResult.Success) {
             _state.value = _state.value.copy(showClipboardError = true)
             return
@@ -411,4 +416,5 @@ class AddEditViewModel(app: Application) : AndroidViewModel(app) {
     fun dismissKeyUnavailable() { _state.value = _state.value.copy(keyUnavailable = false) }
     fun dismissUnresolvedWarning() { _state.value = _state.value.copy(showUnresolvedWarning = false) }
     fun dismissClipboardError() { _state.value = _state.value.copy(showClipboardError = false) }
+    fun dismissClipboardEmptyError() { _state.value = _state.value.copy(showClipboardEmptyError = false) }
 }
