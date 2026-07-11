@@ -13,8 +13,8 @@ android {
         applicationId = "com.paris.duval.sesamelite"
         minSdk = 26
         targetSdk = 36
-        versionCode = 31
-        versionName = "1.7.2"
+        versionCode = 32
+        versionName = "1.7.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -82,6 +82,9 @@ dependencies {
     // Activity
     implementation("androidx.activity:activity-compose:1.9.3")
     implementation("androidx.core:core-ktx:1.15.0")
+
+    // Forces a patched Fragment version; play-services-base transitively pulls in the outdated fragment:1.1.0
+    implementation("androidx.fragment:fragment-ktx:1.8.5")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
